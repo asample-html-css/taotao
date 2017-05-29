@@ -105,19 +105,14 @@
 		   type: "PUT",
 		   url: "/rest/item",
 		   data: $("#itemeEditForm").serialize(),
-		   statusCode : {
-			   204:function(){
-				   $.messager.alert('提示','修改商品成功!','info',function(){
-						$("#itemEditWindow").window('close');
-						$("#itemList").datagrid("reload");
-					});
-			   },
-			   500:function(){
-				   $.messager.alert('提示','修改商品失败!');
-			   },
-			   400:function(){
-				   $.messager.alert('提示','参数有误，请检查后提交!');
-			   }
+		   success: function(msg){
+			   $.messager.alert('提示','修改商品成功!','info',function(){
+					$("#itemEditWindow").window('close');
+					$("#itemList").datagrid("reload");
+				});
+		   },
+		   error: function(){
+			   $.messager.alert('提示','修改商品失败!');
 		   }
 		});
 	}

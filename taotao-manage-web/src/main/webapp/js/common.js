@@ -22,9 +22,9 @@ Date.prototype.format = function(format){
 var TT = TAOTAO = {
 	// 编辑器参数
 	kingEditorParams : {
-		filePostName  : "uploadFile", // 图片上传时表单提交时 input名称
-		uploadJson : '/rest/pic/upload', // 图片上传的地址
-		dir : "image" // 类型，图片
+		filePostName  : "uploadFile",
+		uploadJson : '/rest/pic/upload',
+		dir : "image"
 	},
 	// 格式化时间
 	formatDateTime : function(val,row){
@@ -40,7 +40,7 @@ var TT = TAOTAO = {
 	},
 	// 格式化价格
 	formatPrice : function(val,row){
-		return (val/100).toFixed(2);
+		return (val/1000).toFixed(2);
 	},
 	// 格式化商品的状态
 	formatItemStatus : function formatStatus(val,row){
@@ -75,13 +75,12 @@ var TT = TAOTAO = {
         			}
         		}
         	}
-        	$(e).unbind('click').click(function(){
-        		//找到按钮最近的一个form对象
+        	$(e).click(function(){
         		var form = $(this).parentsUntil("form").parent("form");
         		KindEditor.editor(TT.kingEditorParams).loadPlugin('multiimage',function(){
         			var editor = this;
         			editor.plugin.multiImageDialog({
-						clickFn : function(urlList) { // 点击“全部插入”时所用
+						clickFn : function(urlList) {
 							var imgArray = [];
 							KindEditor.each(urlList, function(i, data) {
 								imgArray.push(data.url);
@@ -98,8 +97,6 @@ var TT = TAOTAO = {
     
     // 初始化选择类目组件
     initItemCat : function(data){
-    	//i: index 
-    	//e: ele
     	$(".selectItemCat").each(function(i,e){
     		var _ele = $(e);
     		if(data && data.cid){
@@ -121,7 +118,7 @@ var TT = TAOTAO = {
     			    	$("ul",_win).tree({
     			    		url:'/rest/item/cat',
     			    		animate:true,
-    			    		method : "GET",
+							method:"GET",
     			    		onClick : function(node){
     			    			if($(this).tree("isLeaf",node.target)){
     			    				// 填写到cid中
@@ -129,8 +126,6 @@ var TT = TAOTAO = {
     			    				_ele.next().text(node.text).attr("cid",node.id);
     			    				$(_win).window('close');
     			    				if(data && data.fun){
-    			    					// 执行传入的方法
-    			    					// 参数：第一个参数一般固定为this，从第二个参数开始，是定义方法中的参数
     			    					data.fun.call(this,node);
     			    				}
     			    			}
@@ -189,38 +184,30 @@ var TT = TAOTAO = {
     },
     
     changeItemParam : function(node,formId){
-    	$.ajax({
-			   type: "GET",
-			   url: "/rest/item/param/" + node.id,
-			   statusCode:{
-				   200 : function(data){
-					   $("#"+formId+" .params").show();
-						 var paramData = JSON.parse(data.paramData);
-						 var html = "<ul>";
-						 for(var i in paramData){
-							 var pd = paramData[i];
-							 html+="<li><table>";
-							 html+="<tr><td colspan=\"2\" class=\"group\">"+pd.group+"</td></tr>";
-							 
-							 for(var j in pd.params){
-								 var ps = pd.params[j];
-								 html+="<tr><td class=\"param\"><span>"+ps+"</span>: </td><td><input autocomplete=\"off\" type=\"text\"/></td></tr>";
-							 }
-							 
-							 html+="</li></table>";
-						 }
-						 html+= "</ul>";
-						 $("#"+formId+" .params td").eq(1).html(html);
-				   },
-				   404 : function(){
-					   $("#"+formId+" .params").hide();
-						 $("#"+formId+" .params td").eq(1).empty();
-				   },
-				   500 : function(){
-					   alert("error");
-				   }
-			   }
-			});
+    	$.getJSON("/rest/item/param/query/itemcatid/" + node.id,function(data){
+			  if(data.status == 200 && data.data){
+				 $("#"+formId+" .params").show();
+				 var paramData = JSON.parse(data.data.paramData);
+				 var html = "<ul>";
+				 for(var i in paramData){
+					 var pd = paramData[i];
+					 html+="<li><table>";
+					 html+="<tr><td colspan=\"2\" class=\"group\">"+pd.group+"</td></tr>";
+					 
+					 for(var j in pd.params){
+						 var ps = pd.params[j];
+						 html+="<tr><td class=\"param\"><span>"+ps+"</span>: </td><td><input autocomplete=\"off\" type=\"text\"/></td></tr>";
+					 }
+					 
+					 html+="</li></table>";
+				 }
+				 html+= "</ul>";
+				 $("#"+formId+" .params td").eq(1).html(html);
+			  }else{
+				 $("#"+formId+" .params").hide();
+				 $("#"+formId+" .params td").eq(1).empty();
+			  }
+		  });
     },
     getSelectionsIds : function (select){
     	var list = $(select);
