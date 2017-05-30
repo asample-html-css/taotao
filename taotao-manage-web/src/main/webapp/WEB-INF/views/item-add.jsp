@@ -111,18 +111,23 @@
 			}
 		});
 		*/
-		
-		//提交到后台的RESTful
+
+        //提交到后台的RESTful   $("#itemAddForm").serialize() $("#itemAddForm").serialize()
 		$.ajax({
 		   type: "POST",
 		   url: "/rest/item",
 		   data: $("#itemAddForm").serialize(),
-		   success: function(msg){
-			   $.messager.alert('提示','新增商品成功!');
-		   },
-		   error: function(){
-			   $.messager.alert('提示','新增商品失败!');
-		   }
+			statusCode:{
+                201: function() {
+                    $.messager.alert('提示','新增商品成功!');
+                },
+                500: function() {
+                    $.messager.alert('提示','新增商品失败!');
+                },
+                404: function() {
+                    $.messager.alert('提示','提交的参数不合法!');
+                },
+            },
 		});
 	}
 	

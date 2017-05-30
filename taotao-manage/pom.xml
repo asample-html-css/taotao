@@ -8,9 +8,9 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>com.taotao.manage</groupId>
     <artifactId>taotao-manage</artifactId>
+    <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <!--导入子模块-->
     <modules>
@@ -19,5 +19,14 @@
         <module>../taotao-manage-service</module>
         <module>../taotao-manage-web</module>
     </modules>
+
+    <dependencies>
+        <!--导入依赖taotao-common-->
+        <dependency>
+            <groupId>com.taotao.common</groupId>
+            <artifactId>taotao-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 </project>

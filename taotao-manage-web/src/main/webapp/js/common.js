@@ -22,9 +22,9 @@ Date.prototype.format = function(format){
 var TT = TAOTAO = {
 	// 编辑器参数
 	kingEditorParams : {
-		filePostName  : "uploadFile",
-		uploadJson : '/rest/pic/upload',
-		dir : "image"
+		filePostName  : "uploadFile",//图片上传时表单input提交的名称
+		uploadJson : '/rest/pic/upload',//图片上传的地址
+		dir : "image"//图片类型
 	},
 	// 格式化时间
 	formatDateTime : function(val,row){
@@ -75,12 +75,15 @@ var TT = TAOTAO = {
         			}
         		}
         	}
-        	$(e).click(function(){
+        	$(e).unbind('click').click(function(){//
+                //找到最近的form
         		var form = $(this).parentsUntil("form").parent("form");
+        		//调用富文本编辑器的editor方法，参数TT.kingEditorParams表示
         		KindEditor.editor(TT.kingEditorParams).loadPlugin('multiimage',function(){
         			var editor = this;
         			editor.plugin.multiImageDialog({
-						clickFn : function(urlList) {
+						//点击 全部插入 时执行
+						clickFn : function(urlList) {//问题是  urlList 从哪里来
 							var imgArray = [];
 							KindEditor.each(urlList, function(i, data) {
 								imgArray.push(data.url);
@@ -126,6 +129,8 @@ var TT = TAOTAO = {
     			    				_ele.next().text(node.text).attr("cid",node.id);
     			    				$(_win).window('close');
     			    				if(data && data.fun){
+    			    					//执行传入的方法
+										//从第二个参数开始，是定义方法中的参数
     			    					data.fun.call(this,node);
     			    				}
     			    			}
