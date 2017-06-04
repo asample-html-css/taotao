@@ -26,6 +26,9 @@ public class Item extends BasePojo {
 
     private Long cid;
 
+    //====其他属性=====
+
+
     private Integer status;
 
     public Long getId() {

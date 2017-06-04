@@ -1,6 +1,7 @@
 package com.taotao.manage.controller;
 
 import com.mysql.jdbc.StringUtils;
+import com.taotao.common.bean.EasyUIResult;
 import com.taotao.manage.pojo.Item;
 import com.taotao.manage.pojo.ItemDesc;
 import com.taotao.manage.service.ItemDescService;
@@ -29,7 +30,12 @@ public class ItemController {
     private ItemService itemService;
 
 
-
+    /**
+     * 新增商品
+     * @param item
+     * @param desc
+     * @return
+     */
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> saveItem(Item item, @RequestParam("desc")String desc){
         try {
@@ -57,5 +63,36 @@ public class ItemController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();//500
     }
 
+    /**
+     * 查询商品列表
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<EasyUIResult> queryItemList(@RequestParam(value ="page",defaultValue ="1")Integer page,
+                                                      @RequestParam(value ="rows",defaultValue ="30")Integer rows){
+        try {
+            return ResponseEntity.ok(this.itemService.queryItemList(page,rows));
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.error("查询商品出错! page ={}"+page+"， rows = "+rows, e);
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);//500
+    }
+
+    /**
+     * 根据cid查找cname
+     * @param cid
+     * @return
+     */
+    @RequestMapping(value = "/queryCname",method = RequestMethod.POST)
+    public ResponseEntity<String> queryCname(@RequestParam("cid")Long cid){
+        try {
+            return ResponseEntity.ok(this.itemService.queryCname(cid));
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.error("根据cid查找cname出错! cid ={}"+cid, e);
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);//500
+    }
 
 }

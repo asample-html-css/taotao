@@ -51,12 +51,13 @@
         		$.messager.alert('提示','只能选择一个商品!');
         		return ;
         	}
-        	
+        	//校验通过之后 打开编辑窗口
         	$("#itemEditWindow").window({
         		onLoad :function(){
         			//回显数据
         			var data = $("#itemList").datagrid("getSelections")[0];
         			data.priceView = TAOTAO.formatPrice(data.price);
+
         			$("#itemeEditForm").form("load",data);
         			
         			// 加载商品描述
@@ -95,6 +96,12 @@
         			TAOTAO.init({
         				"pics" : data.image,
         				"cid" : data.cid,
+                        "cname":
+                            $.post("/rest/item/queryCname", { cid: data.cid },
+                                function(data){
+                                //todo
+                                var cname = data;
+                                }),
         				fun:function(node){
         					TAOTAO.changeItemParam(node, "itemeEditForm");
         				}

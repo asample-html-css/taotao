@@ -1,7 +1,7 @@
 package com.taotao.manage.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.taotao.manage.mapper.PicUploadResult;
+import com.taotao.common.bean.PicUploadResult;
 import com.taotao.manage.service.PropertiesService;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;

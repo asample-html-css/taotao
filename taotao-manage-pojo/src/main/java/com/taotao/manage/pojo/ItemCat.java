@@ -15,6 +15,7 @@ public class ItemCat extends BasePojo{
 
     @Column(name = "parent_id")
     private Long parentId;
+
     private String name;
     private Integer status;
 

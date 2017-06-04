@@ -1,4 +1,4 @@
-package com.taotao.manage.mapper;
+package com.taotao.common.bean;
 
 public class PicUploadResult {
     
