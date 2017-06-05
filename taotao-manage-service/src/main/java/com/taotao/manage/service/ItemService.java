@@ -7,6 +7,7 @@ import com.taotao.common.bean.EasyUIResult;
 import com.taotao.manage.mapper.ItemMapper;
 import com.taotao.manage.pojo.Item;
 import com.taotao.manage.pojo.ItemDesc;
+import com.taotao.manage.pojo.ItemParamItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,8 @@ public class ItemService extends BaseService<Item> {
     private ItemDescService itemDescService;
     @Autowired
     private ItemMapper itemMapper;
+    @Autowired
+    private ItemParamItemService itemParamItemService;
 
     /**
      * 新增商品
@@ -28,17 +31,25 @@ public class ItemService extends BaseService<Item> {
      * @param desc
      * @return
      */
-    public boolean saveItem(Item item, String desc) {
+    public boolean saveItem(Item item, String desc,String itemParams) {
+        //保存商品
         item.setStatus(1);//设置初始值
         item.setId(null);//防止id注入
-       Integer count1 =  super.save(item);
+        Integer count1 =  super.save(item);
 
         //保存ItemDesc
         ItemDesc itemDesc = new ItemDesc();
         itemDesc.setItemId(item.getId());
         itemDesc.setItemDesc(desc);
         Integer count2 =  itemDescService.save(itemDesc);
-        return count1.intValue() == 1 && count2.intValue() == 1;
+
+        //保存商品参数信息
+        ItemParamItem itemParamItem = new ItemParamItem();
+        itemParamItem.setItemId(item.getId());
+        itemParamItem.setParamData(itemParams);
+        Integer count3 =  itemParamItemService.save(itemParamItem);
+
+        return count1.intValue() == 1 && count2.intValue() == 1 && count3.intValue() == 1 ;
     }
 
     /**
@@ -69,7 +80,7 @@ public class ItemService extends BaseService<Item> {
      * @param desc
      * @return
      */
-    public Boolean updateItem(Item item, String desc) {
+    public Boolean updateItem(Item item, String desc,String itemParams) {
         //强制设置不能更新的字段为空
         item.setStatus(null);
         item.setCreated(null);
@@ -81,6 +92,9 @@ public class ItemService extends BaseService<Item> {
         itemDesc.setItemId(item.getId());
         itemDesc.setItemDesc(desc);
         Integer count2 =  itemDescService.updateSelective(itemDesc);
-        return count1.intValue() == 1 && count2.intValue() == 1;
+
+        //保存商品规格参数
+        Integer count3 =  itemParamItemService.updateItemParamItem(item.getId(),itemParams);
+        return count1.intValue() == 1 && count2.intValue() == 1 && count3.intValue() == 1;
     }
 }

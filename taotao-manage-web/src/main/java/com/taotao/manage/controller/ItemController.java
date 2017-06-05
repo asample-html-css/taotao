@@ -35,7 +35,7 @@ public class ItemController {
      * @return
      */
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> saveItem(Item item, @RequestParam("desc")String desc){
+    public ResponseEntity<Void> saveItem(Item item, @RequestParam("desc")String desc,@RequestParam("itemParams")String itemParams){
         try {
             if (LOGGER.isDebugEnabled()){
                 //入参处记录日志
@@ -46,7 +46,7 @@ public class ItemController {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();//400
             }
             //保存商品
-           Boolean boo =  itemService.saveItem(item,desc);
+           Boolean boo =  itemService.saveItem(item,desc,itemParams);
             if (!boo){
                 if (LOGGER.isDebugEnabled()) {
                     LOGGER.debug("新增商品失败：item= {}, desc={}", item, desc);
@@ -100,7 +100,7 @@ public class ItemController {
      * @return
      */
     @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<Void> updateItem(Item item, @RequestParam("desc")String desc){
+    public ResponseEntity<Void> updateItem(Item item, @RequestParam("desc")String desc,@RequestParam("itemParams")String itemParams){
         try {
             if (LOGGER.isDebugEnabled()){
                 //入参处记录日志
@@ -114,7 +114,7 @@ public class ItemController {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();//400
             }
             //更新商品 204
-            Boolean boo =  itemService.updateItem(item,desc);
+            Boolean boo =  itemService.updateItem(item,desc,itemParams);
             if (!boo){//500
                 if (LOGGER.isDebugEnabled()) {
                     LOGGER.debug("更新商品失败：item= {}, desc={}", item, desc);
@@ -128,6 +128,11 @@ public class ItemController {
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();//500
     }
+
+
+
+
+
 
 
 
