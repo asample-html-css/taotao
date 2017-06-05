@@ -63,11 +63,24 @@ public class ItemService extends BaseService<Item> {
         return "手机"+cid;
     }
 
+    /**
+     * 更新商品
+     * @param item
+     * @param desc
+     * @return
+     */
+    public Boolean updateItem(Item item, String desc) {
+        //强制设置不能更新的字段为空
+        item.setStatus(null);
+        item.setCreated(null);
 
+        Integer count1 =  super.updateSelective(item);
 
-
-
-
-
-
+        //保存ItemDesc
+        ItemDesc itemDesc = new ItemDesc();
+        itemDesc.setItemId(item.getId());
+        itemDesc.setItemDesc(desc);
+        Integer count2 =  itemDescService.updateSelective(itemDesc);
+        return count1.intValue() == 1 && count2.intValue() == 1;
+    }
 }

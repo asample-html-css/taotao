@@ -35,7 +35,7 @@
 		</ul>
 	</li>
 </div>
-<script style="text/javascript">
+<script type="text/javascript">
 	$(function(){
 		TAOTAO.initItemCat({
 			fun:function(node){
@@ -50,23 +50,24 @@
 				  }
 				  $(".addGroupTr").show();
 			  }); */
-				
-			  $.ajax({
-				   type: "GET",
-				   url: "/rest/item/param/" + node.id,
-				   success: function(data){
-					   if(data){
-						  $.messager.alert("提示", "该类目已经添加，请选择其他类目。", undefined, function(){
-							 $("#itemParamAddTable .selectItemCat").click();
-						  });
-						  return ;
-					  }
-					  $(".addGroupTr").show();
-				   },
-				   error: function(){
-					   alert("error");
-				   }
-				});
+
+                $.ajax({
+                    type: "GET",
+                    url: "/rest/item/param/" + node.id,
+                    statusCode: {
+                        200: function () {//该类目的参数模板存在
+                            $.messager.alert("提示", "该类目已经添加，请选择其他类目。", undefined, function () {
+                                $("#itemParamAddTable .selectItemCat").click();
+                            });
+                        },
+                        500: function () {
+                            alert("error");
+                        },
+                        404: function () {//该类目参数模板不存在
+                            $(".addGroupTr").show();
+                        },
+                    },
+                });
 			}
 		});
 		

@@ -3,8 +3,6 @@ package com.taotao.manage.controller;
 import com.mysql.jdbc.StringUtils;
 import com.taotao.common.bean.EasyUIResult;
 import com.taotao.manage.pojo.Item;
-import com.taotao.manage.pojo.ItemDesc;
-import com.taotao.manage.service.ItemDescService;
 import com.taotao.manage.service.ItemService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -94,5 +92,43 @@ public class ItemController {
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);//500
     }
+
+    /**
+     * 更新商品
+     * @param item
+     * @param desc
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponseEntity<Void> updateItem(Item item, @RequestParam("desc")String desc){
+        try {
+            if (LOGGER.isDebugEnabled()){
+                //入参处记录日志
+                LOGGER.debug("更新商品：item= {}, desc={}",item,desc);
+            }
+            //简单模拟400请求参数错误
+            if (StringUtils.isNullOrEmpty(item.getTitle())){
+                if (LOGGER.isInfoEnabled()){
+                    LOGGER.info("编辑商品参数不合法，item = {},desc = {}",item,desc);
+                }
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();//400
+            }
+            //更新商品 204
+            Boolean boo =  itemService.updateItem(item,desc);
+            if (!boo){//500
+                if (LOGGER.isDebugEnabled()) {
+                    LOGGER.debug("更新商品失败：item= {}, desc={}", item, desc);
+                }
+                //保存商品失败
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();//500
+            }
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();//204
+        } catch (Exception e) {
+            LOGGER.error("更新商品出错! item = " + item, e);
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();//500
+    }
+
+
 
 }
