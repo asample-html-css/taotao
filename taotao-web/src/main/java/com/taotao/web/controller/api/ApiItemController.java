@@ -1,19 +1,32 @@
 package com.taotao.web.controller.api;
 
+import com.taotao.common.bean.ItemCatResult;
+import com.taotao.manage.service.ItemCatService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Created by yangdongan on 2017/6/6 0006.
  */
 @Controller
+@RequestMapping("api/item/cat")
 public class ApiItemController {
 
-    @RequestMapping(value = "index",method = RequestMethod.GET)
-    public ModelAndView index(){
-        ModelAndView modelAndView = new ModelAndView("index");
-        return modelAndView;
+    @Autowired
+    private ItemCatService itemCatServicep;
+
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<ItemCatResult> queryItemCat(){
+
+
+
+
+
+
+
     }
 }

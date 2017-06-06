@@ -93,6 +93,11 @@
                 <artifactId>commons-io</artifactId>
                 <version>${commons-io.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.taotao.manage</groupId>
+                <artifactId>taotao-manage-service</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
         </dependencies>
     <build>
         <finalName>taotao-web</finalName>
