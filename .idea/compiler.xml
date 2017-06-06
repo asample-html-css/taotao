@@ -11,6 +11,7 @@
         <module name="taotao-manage-pojo" />
         <module name="taotao-manage-service" />
         <module name="taotao-manage-web" />
+        <module name="taotao-web" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -22,6 +23,7 @@
       <module name="taotao-manage-service" target="1.5" />
       <module name="taotao-manage-web" target="1.5" />
       <module name="taotao-parent" target="1.5" />
+      <module name="taotao-web" target="1.5" />
       <module name="tt" target="1.5" />
     </bytecodeTargetLevel>
   </component>

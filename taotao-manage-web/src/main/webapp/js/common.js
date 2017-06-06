@@ -42,7 +42,6 @@ var TT = TAOTAO = {
 	formatPrice : function(val,row){
 		return (val/100).toFixed(2);
 	},
-
 	// 格式化商品的状态
 	formatItemStatus : function formatStatus(val,row){
         if (val == 1){
@@ -104,8 +103,7 @@ var TT = TAOTAO = {
     	$(".selectItemCat").each(function(i,e){
     		var _ele = $(e);
     		if(data && data.cid){
-    			//todo
-    			_ele.after("<span style='margin-left:10px;'>"+data.cname+"</span>");
+    			_ele.after("<span style='margin-left:10px;'>"+data.cid+"</span>");
     		}else{
     			_ele.after("<span style='margin-left:10px;'></span>");
     		}
