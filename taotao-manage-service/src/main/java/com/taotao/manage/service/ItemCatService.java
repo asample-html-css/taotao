@@ -2,7 +2,9 @@ package com.taotao.manage.service;
 
 import com.taotao.common.bean.ItemCatData;
 import com.taotao.common.bean.ItemCatResult;
+import com.taotao.manage.mapper.ItemCatMapper;
 import com.taotao.manage.pojo.ItemCat;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,6 +15,8 @@ import java.util.Map;
 @Service
 public class ItemCatService extends BaseService<ItemCat> {
 
+    @Autowired
+    private ItemCatMapper itemCatMapper;
 
     /**
      * 全部查询，并且生成树状结构
