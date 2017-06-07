@@ -12,7 +12,7 @@ server {
         listen       80;
         server_name  manage.taotao.com;
         location / {
-    	    proxy_pass http://127.0.0.1:8080;
+    	    proxy_pass http://127.0.0.1:8082;
         }
     } 
 
@@ -37,8 +37,8 @@ server {
 
 2.tomcat配置
 后台系统 taotao-manage
-http://localhost:8080/  
-JMX port  1099
+http://localhost:8082/  
+JMX port  1092
 
 前台系统 taotao-manage
 http://localhost:8081/  

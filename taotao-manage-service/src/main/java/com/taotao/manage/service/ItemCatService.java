@@ -38,6 +38,8 @@ public class ItemCatService extends BaseService<ItemCat> {
             itemCatMap.get(itemCat.getParentId()).add(itemCat);
         }
 
+
+
         // 封装一级对象
         List<ItemCat> itemCatList1 = itemCatMap.get(0L);
         for (ItemCat itemCat : itemCatList1) {
