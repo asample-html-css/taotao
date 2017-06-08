@@ -40,7 +40,7 @@ server {
 http://localhost:8082/  
 JMX port  1092
 
-前台系统 taotao-manage
+前台系统 taotao-web
 http://localhost:8081/  
 JMX port  1091
 
