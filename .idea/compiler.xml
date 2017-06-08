@@ -6,6 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="itcasthttpClient" />
         <module name="taotao-common" />
         <module name="taotao-manage-mapper" />
         <module name="taotao-manage-pojo" />
@@ -15,6 +16,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="itcasthttpClient" target="1.5" />
       <module name="taotao" target="1.5" />
       <module name="taotao-common" target="1.5" />
       <module name="taotao-manage" target="1.5" />

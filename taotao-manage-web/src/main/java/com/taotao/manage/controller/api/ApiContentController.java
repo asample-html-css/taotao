@@ -1,7 +1,6 @@
-package com.taotao.manage.controller;
+package com.taotao.manage.controller.api;
 
 import com.taotao.common.bean.EasyUIResult;
-import com.taotao.manage.pojo.Content;
 import com.taotao.manage.service.ContentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,30 +14,14 @@ import org.springframework.web.bind.annotation.RequestParam;
  * Created by dd876799869 on 2017/5/29.
  */
 @Controller
-@RequestMapping("content")
-public class ContentController {
+@RequestMapping("api/content")
+public class ApiContentController {
 
     @Autowired
     private ContentService contentService;
 
     /**
-     * 新增内容
-     * @return
-     */
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Content> saveContent(Content content) {
-        try {
-            content.setId(null);
-            this.contentService.saveSelective(content);
-            return ResponseEntity.status(HttpStatus.CREATED).body(content);//400
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-    }
-
-    /**
-     * 查询内容列表
+     * 查询内容列表(对外提供查询数据的接口)
      * @return
      */
     @RequestMapping(method = RequestMethod.GET)

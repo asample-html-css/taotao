@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/itcasthttpClient/itcasthttpClient.iml" filepath="$PROJECT_DIR$/itcasthttpClient/itcasthttpClient.iml" />
       <module fileurl="file://$PROJECT_DIR$/taotao-common/taotao-common.iml" filepath="$PROJECT_DIR$/taotao-common/taotao-common.iml" />
       <module fileurl="file://$PROJECT_DIR$/taotao-manage/taotao-manage.iml" filepath="$PROJECT_DIR$/taotao-manage/taotao-manage.iml" />
       <module fileurl="file://$PROJECT_DIR$/taotao-manage-mapper/taotao-manage-mapper.iml" filepath="$PROJECT_DIR$/taotao-manage-mapper/taotao-manage-mapper.iml" />
