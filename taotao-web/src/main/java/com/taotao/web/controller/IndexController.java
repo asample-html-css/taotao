@@ -21,8 +21,10 @@ public class IndexController {
         ModelAndView modelAndView = new ModelAndView("index");
 
         //将广告数据封装到modelAndView里面
-        String jsonData = indexService.queryIndexAd1();
-        modelAndView.addObject("indexAD1",jsonData);
+        //首页大广告
+        modelAndView.addObject("indexAD1",indexService.queryIndexAd1());
+        //首页右上角小广告
+        modelAndView.addObject("indexAD2",indexService.queryIndexAd2());
 
         return modelAndView;
     }
