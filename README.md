@@ -59,6 +59,10 @@ ArrayNode rows = (ArrayNode) jsonNode.get("rows");
 MAPPER.writeValueAsString(result);//将json对象序列化成json字符串
 
 
+图片链接地址：
+http://pan.baidu.com/s/1nvhtPbF
+
+
 
 
 
