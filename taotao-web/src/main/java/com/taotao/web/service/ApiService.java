@@ -41,7 +41,7 @@ public class ApiService implements BeanFactoryAware {
 //    @Autowired
 //    private CloseableHttpClient httpclient;
 
-    @Autowired
+    @Autowired(required = false)
     private RequestConfig requestConfig;
 
     private BeanFactory beanFactory;
@@ -63,10 +63,11 @@ public class ApiService implements BeanFactoryAware {
             // 执行请求
             response = getHttpclient().execute(httpGet);
             // 判断返回状态是否为200
-            if (response.getStatusLine().getStatusCode() == 200) {
-                String content = EntityUtils.toString(response.getEntity(), "UTF-8");
-                System.out.println("内容："+content);
+            // 判断返回状态是否为200
+            if (response.getStatusLine().getStatusCode() == 201) {
+                return EntityUtils.toString(response.getEntity(), "UTF-8");
             }
+
         } finally {
             if (response != null) {
                 response.close();
@@ -148,21 +149,22 @@ public class ApiService implements BeanFactoryAware {
      * @return
      */
     private CloseableHttpClient getHttpclient(){
-        return  this.beanFactory.getBean(CloseableHttpClient.class);
-    }
+        CloseableHttpClient   closeableHttpClient = this.beanFactory.getBean(CloseableHttpClient.class);
 
+        return  closeableHttpClient;
+    }
 
     /**
      * 初始化spring时候 由beanFactory注入多例的httpClient
      * @param beanFactory
      * @throws BeansException
      */
+    @Override
     public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
         //该方法实在spring容器初始化是会调用该方法,传入beanFactory
         //通过Bean工厂获取bean，保证HttpClient对象是多例
         this.beanFactory = beanFactory;
 
     }
-
 
 }
