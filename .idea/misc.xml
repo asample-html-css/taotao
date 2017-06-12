@@ -2,6 +2,7 @@
 <project version="4">
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/itcasthttpClient" />
+    <file type="web" url="file://$PROJECT_DIR$/itcastRedis" />
     <file type="web" url="file://$PROJECT_DIR$/taotao-manage-mapper" />
     <file type="web" url="file://$PROJECT_DIR$/taotao-manage-pojo" />
     <file type="web" url="file://$PROJECT_DIR$/taotao-manage-service" />
@@ -20,6 +21,7 @@
         <option value="$PROJECT_DIR$/taotao-manage-web/pom.xml" />
         <option value="$PROJECT_DIR$/taotao-web/pom.xml" />
         <option value="$PROJECT_DIR$/itcasthttpClient/pom.xml" />
+        <option value="$PROJECT_DIR$/itcastRedis/pom.xml" />
       </list>
     </option>
   </component>
