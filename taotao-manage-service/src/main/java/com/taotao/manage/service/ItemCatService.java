@@ -1,9 +1,11 @@
 package com.taotao.manage.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.taotao.common.bean.ItemCatData;
 import com.taotao.common.bean.ItemCatResult;
 import com.taotao.manage.mapper.ItemCatMapper;
 import com.taotao.manage.pojo.ItemCat;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,15 @@ public class ItemCatService extends BaseService<ItemCat> {
 
     @Autowired
     private ItemCatMapper itemCatMapper;
+    @Autowired
+    private RedisService redisService;
+
+    private static ObjectMapper MAPPER = new ObjectMapper();
+
+    private static String REDIS_KEY = "TAOTAO_MANAGE_ITEM_CAT_ALL";
+
+    private static Integer REDIS_TIME = 60 * 60 * 24 * 90;
+
 
     /**
      * 全部查询，并且生成树状结构
@@ -24,7 +35,19 @@ public class ItemCatService extends BaseService<ItemCat> {
      * @return
      */
     public ItemCatResult queryAllToTree() {
+        try {
+            //首先到缓存中命中
+            String cacheData = redisService.get(REDIS_KEY);
+            if (StringUtils.isNotEmpty(cacheData)) {//不为空，命中
+                //将String转化成ItemCatResult
+                return MAPPER.readValue(cacheData, ItemCatResult.class);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+
+        //如果没有命中  到数据库查询
         ItemCatResult result = new ItemCatResult();
         // 全部查出，并且在内存中生成树形结构
         List<ItemCat> cats = super.queryAll();
@@ -37,7 +60,6 @@ public class ItemCatService extends BaseService<ItemCat> {
             }
             itemCatMap.get(itemCat.getParentId()).add(itemCat);
         }
-
 
 
         // 封装一级对象
@@ -74,10 +96,15 @@ public class ItemCatService extends BaseService<ItemCat> {
                 break;
             }
         }
+
+        //在返回之前，将数据保存到缓存中 3个月
+        try {
+            redisService.set(REDIS_KEY, MAPPER.writeValueAsString(result), REDIS_TIME);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return result;
     }
-
-
 
 
 }

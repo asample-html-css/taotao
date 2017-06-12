@@ -14,7 +14,7 @@
 
 	<!--分片式连接池-->
 	<bean class="redis.clients.jedis.ShardedJedisPool">
-		<constructor-arg index="0" value="JedisPoolConfig"/>
+		<constructor-arg index="0" ref="JedisPoolConfig"/>
 		<constructor-arg index="1" >
 			<list>
 				<bean class="redis.clients.jedis.JedisShardInfo">

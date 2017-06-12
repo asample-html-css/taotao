@@ -7,7 +7,7 @@ public class Demo {
 
     public static void main(String[] args) {
 
-        TwoTuple twoTuple = new TwoTuple(new A(),new B());
+        TwoTuple twoTuple = new TwoTuple(new String("123"),new Integer(123));
 
         System.out.println(twoTuple.first);
         System.out.println(twoTuple.second);

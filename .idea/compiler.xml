@@ -19,7 +19,7 @@
     <bytecodeTargetLevel target="1.8">
       <module name="itcasthttpClient" target="1.5" />
       <module name="itcastRedis" target="1.5" />
-      <module name="taotao-common" target="1.5" />
+      <module name="taotao-common" target="1.6" />
       <module name="taotao-manage" target="1.5" />
       <module name="taotao-manage-mapper" target="1.5" />
       <module name="taotao-manage-pojo" target="1.5" />

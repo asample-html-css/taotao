@@ -31,12 +31,37 @@ public class IndexService   {
     @Autowired
     private ApiService apiService;
 
+//    @Autowired
+//    private RedisService redisService;
+
+//
+//    private static String REDIS_INDEXAD1 = "TAOTAO_WEB_INDEXAD1";
+//
+//    private static String REDIS_INDEXAD2 = "TAOTAO_WEB_INDEXAD2";
+//
+//    private static Integer REDIS_TIME = 60 * 60 * 24 * 90;
+
     /**
      * 查询大广告
      * @return
      */
     public String queryIndexAd1() {
+/**
+ * 真的是越来越坑了
+ * 要想实现首页大广告实现缓存的话  redisServie就应该放在taotao-common中  而不是taotao-service
+ */
+        //首先到缓存中命中
+//        try {
+//            String cacheData1 = redisService.get(REDIS_INDEXAD1);
+//            if (StringUtils.isNotEmpty(cacheData1)) {//不为空，命中
+//                //将String转化成ItemCatResult
+//                return cacheData1;
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
+        //查数据库
         try {
             //获取原生json数据
             String url = AD_BASE_URL + AD1_URL;
@@ -68,6 +93,15 @@ public class IndexService   {
 
                 result.add(map);
             }
+
+            //在返回之前，将数据保存到缓存中 3个月
+//            try {
+//                redisService.set(REDIS_INDEXAD1, MAPPER.writeValueAsString(result), REDIS_TIME);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+
+
            // return  result.toString();简单的toString会生成 = 号
             return MAPPER.writeValueAsString(result);//将json对象序列化成json字符串
         } catch (Exception e) {
@@ -81,6 +115,18 @@ public class IndexService   {
      * @return
      */
     public String queryIndexAd2() {
+        //首先到缓存中命中
+//        try {
+//            String cacheData2 = redisService.get(REDIS_INDEXAD2);
+//            if (StringUtils.isNotEmpty(cacheData2)) {//不为空，命中
+//                //将String转化成ItemCatResult
+//                return cacheData2;
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
+        //查数据库
         try {
             //获取原生json数据
             String url = AD_BASE_URL + AD2_URL;
@@ -100,7 +146,6 @@ public class IndexService   {
 
             for (JsonNode row :rows ) {//对rows中的每个节点JsonNode进行遍历
                 Map<String,Object> map = new LinkedHashMap<String, Object>();
-
                 map.put("width",310);
                 map.put("height",70);
                 map.put("src",row.get("pic").asText());
@@ -109,9 +154,17 @@ public class IndexService   {
                 map.put("widthB",210);
                 map.put("heightB",70);
                 map.put("srcB",row.get("pic").asText());
-
                 result.add(map);
             }
+
+
+            //在返回之前，将数据保存到缓存中 3个月
+//            try {
+//                redisService.set(REDIS_INDEXAD2, MAPPER.writeValueAsString(result), REDIS_TIME);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+
             // return  result.toString();简单的toString会生成 = 号
             return MAPPER.writeValueAsString(result);//将json对象序列化成json字符串
         } catch (Exception e) {
