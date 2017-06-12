@@ -4,9 +4,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -18,7 +18,16 @@ import java.util.Map;
 @Service
 public class IndexService   {
 
+    @Value("${AD_BASE_URL}")
+    public String AD_BASE_URL;
+    @Value("${AD1_URL}")
+    public String AD1_URL;
+    @Value("${AD2_URL}")
+    public String AD2_URL;
+
+
     private static final ObjectMapper MAPPER = new ObjectMapper();
+
     @Autowired
     private ApiService apiService;
 
@@ -30,7 +39,7 @@ public class IndexService   {
 
         try {
             //获取原生json数据
-            String url = "http://manage.taotao.com/rest/content?categoryId=66&page=1&rows=6";
+            String url = AD_BASE_URL + AD1_URL;
             //此处返回的是json数据
             String jsonData =  apiService.doGet(url);
             if (jsonData==null){
@@ -74,7 +83,7 @@ public class IndexService   {
     public String queryIndexAd2() {
         try {
             //获取原生json数据
-            String url = "http://manage.taotao.com/rest/content?categoryId=67&page=1&rows=1";
+            String url = AD_BASE_URL + AD2_URL;
             //此处返回的是json数据
             String jsonData =  apiService.doGet(url);
             if (jsonData==null){

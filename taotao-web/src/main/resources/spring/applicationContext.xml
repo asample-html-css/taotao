@@ -17,7 +17,7 @@
 		<!-- 配置资源文件 -->
 		<property name="locations">
 			<list>
-				<value>classpath:env.properties</value>
+				<value>classpath:ad.properties</value>
 				<value>classpath:httpclient.properties</value>
 			</list>
 		</property>
