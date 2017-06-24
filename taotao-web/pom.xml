@@ -73,11 +73,26 @@
             <artifactId>httpclient</artifactId>
             <version>4.3.5</version>
         </dependency>
+        <dependency>
+            <groupId>com.taotao.manage</groupId>
+            <artifactId>taotao-manage-pojo</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
 
     </dependencies>
 
     <build>
         <finalName>taotao-web</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 
 </project>

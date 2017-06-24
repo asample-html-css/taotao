@@ -62,9 +62,8 @@ public class ApiService implements BeanFactoryAware {
         try {
             // 执行请求
             response = getHttpclient().execute(httpGet);
-            // 判断返回状态是否为200
-            // 判断返回状态是否为200
-            if (response.getStatusLine().getStatusCode() == 201) {
+            // 判断返回状态是否为200/201
+            if (response.getStatusLine().getStatusCode() == 201 || response.getStatusLine().getStatusCode() == 200) {
                 return EntityUtils.toString(response.getEntity(), "UTF-8");
             }
 
