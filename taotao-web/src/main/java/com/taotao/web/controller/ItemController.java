@@ -1,6 +1,8 @@
 package com.taotao.web.controller;
 
 
+import com.taotao.manage.pojo.ItemDesc;
+import com.taotao.manage.pojo.ItemParamItem;
 import com.taotao.web.bean.Item;
 import com.taotao.web.service.IndexService;
 import com.taotao.web.service.ItemService;
@@ -23,8 +25,18 @@ public class ItemController {
     @RequestMapping(value = "{itemId}",method = RequestMethod.GET)
     public ModelAndView item(@PathVariable Long itemId){
         ModelAndView mv = new ModelAndView("item");
+
+        //商品基本信息
         Item item = itemService.queryItemById(itemId);
         mv.addObject("item",item);
+
+        //商品详信息
+        ItemDesc itemDesc = itemService.queryItemDescById(itemId);
+        mv.addObject("itemDesc",itemDesc);
+
+        //商品规格参数
+        String itemParamItem = itemService.queryItemParamItemById(itemId);
+        mv.addObject("itemParamItem",itemParamItem);
         return mv;
     }
 }
