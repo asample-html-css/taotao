@@ -3,6 +3,7 @@ package com.taotao.manage.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.taotao.common.bean.ItemCatData;
 import com.taotao.common.bean.ItemCatResult;
+import com.taotao.common.service.RedisService;
 import com.taotao.manage.mapper.ItemCatMapper;
 import com.taotao.manage.pojo.ItemCat;
 import org.apache.commons.lang3.StringUtils;

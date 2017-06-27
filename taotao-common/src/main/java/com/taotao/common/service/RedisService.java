@@ -1,5 +1,6 @@
-package com.taotao.manage.service;
+package com.taotao.common.service;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.ShardedJedis;
@@ -11,10 +12,12 @@ import redis.clients.jedis.ShardedJedisPool;
 @Service
 public class RedisService {
 
-    @Autowired
+    //在common模块里面的东西必须对在任何环境下都能使用,required = false,如果容器中不存在这个bean也能启动
+    @Autowired(required = false)
     private ShardedJedisPool shardedJedisPool;
 
     /**
+     * 这个地方设计的有点难  回头要好好学习
      * 定义一个私有方法  抽取共同代码
      */
     private <T>  T execute(Function<T,ShardedJedis> fun){
@@ -30,6 +33,26 @@ public class RedisService {
             }
         }
     }
+
+
+    /**
+     * 命中缓存
+     * @param key
+     * @return
+     */
+    public String getCacheString(String key) {
+        try {
+            String cacheData = this.get(key);
+            if (StringUtils.isNotEmpty(cacheData)) {//不为空，命中
+                //将String转化成ItemCatResult
+                return cacheData;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
 
     /**

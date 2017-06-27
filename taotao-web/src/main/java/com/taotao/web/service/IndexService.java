@@ -3,6 +3,8 @@ package com.taotao.web.service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.taotao.common.service.RedisService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -31,15 +33,15 @@ public class IndexService   {
     @Autowired
     private ApiService apiService;
 
-//    @Autowired
-//    private RedisService redisService;
+    @Autowired
+    private RedisService redisService;
 
-//
-//    private static String REDIS_INDEXAD1 = "TAOTAO_WEB_INDEXAD1";
-//
-//    private static String REDIS_INDEXAD2 = "TAOTAO_WEB_INDEXAD2";
-//
-//    private static Integer REDIS_TIME = 60 * 60 * 24 * 90;
+
+    private static String REDIS_INDEXAD1 = "TAOTAO_WEB_INDEXAD1";
+
+    private static String REDIS_INDEXAD2 = "TAOTAO_WEB_INDEXAD2";
+
+    private static Integer REDIS_TIME = 60 * 60 * 24 * 90;
 
     /**
      * 查询大广告
@@ -51,16 +53,10 @@ public class IndexService   {
  * 要想实现首页大广告实现缓存的话  redisServie就应该放在taotao-common中  而不是taotao-service
  */
         //首先到缓存中命中
-//        try {
-//            String cacheData1 = redisService.get(REDIS_INDEXAD1);
-//            if (StringUtils.isNotEmpty(cacheData1)) {//不为空，命中
-//                //将String转化成ItemCatResult
-//                return cacheData1;
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
+        String cacheData1 =redisService.getCacheString(REDIS_INDEXAD1);
+        if (cacheData1!=null){
+            return  cacheData1;
+        }
         //查数据库
         try {
             //获取原生json数据
@@ -95,13 +91,11 @@ public class IndexService   {
             }
 
             //在返回之前，将数据保存到缓存中 3个月
-//            try {
-//                redisService.set(REDIS_INDEXAD1, MAPPER.writeValueAsString(result), REDIS_TIME);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-
-
+            try {
+                redisService.set(REDIS_INDEXAD1, MAPPER.writeValueAsString(result), REDIS_TIME);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
            // return  result.toString();简单的toString会生成 = 号
             return MAPPER.writeValueAsString(result);//将json对象序列化成json字符串
         } catch (Exception e) {
@@ -115,17 +109,10 @@ public class IndexService   {
      * @return
      */
     public String queryIndexAd2() {
-        //首先到缓存中命中
-//        try {
-//            String cacheData2 = redisService.get(REDIS_INDEXAD2);
-//            if (StringUtils.isNotEmpty(cacheData2)) {//不为空，命中
-//                //将String转化成ItemCatResult
-//                return cacheData2;
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
+        String cacheData2 =redisService.getCacheString(REDIS_INDEXAD1);
+        if (cacheData2!=null){
+            return  cacheData2;
+        }
         //查数据库
         try {
             //获取原生json数据
@@ -157,14 +144,12 @@ public class IndexService   {
                 result.add(map);
             }
 
-
             //在返回之前，将数据保存到缓存中 3个月
-//            try {
-//                redisService.set(REDIS_INDEXAD2, MAPPER.writeValueAsString(result), REDIS_TIME);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-
+            try {
+                redisService.set(REDIS_INDEXAD2, MAPPER.writeValueAsString(result), REDIS_TIME);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             // return  result.toString();简单的toString会生成 = 号
             return MAPPER.writeValueAsString(result);//将json对象序列化成json字符串
         } catch (Exception e) {
@@ -172,4 +157,6 @@ public class IndexService   {
         }
         return  null;
     }
+
+
 }
