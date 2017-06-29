@@ -4,13 +4,16 @@ import com.github.abel533.entity.Example;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.taotao.common.bean.EasyUIResult;
+import com.taotao.common.service.ApiService;
 import com.taotao.manage.mapper.ItemMapper;
 import com.taotao.manage.pojo.Item;
 import com.taotao.manage.pojo.ItemDesc;
 import com.taotao.manage.pojo.ItemParamItem;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -24,6 +27,12 @@ public class ItemService extends BaseService<Item> {
     private ItemMapper itemMapper;
     @Autowired
     private ItemParamItemService itemParamItemService;
+
+    @Autowired
+    private ApiService apiService;
+
+    @Value("${TAOTAO_WEB_URL}")
+    private String TAOTAO_WEB_URL;
 
     /**
      * 新增商品
@@ -95,6 +104,19 @@ public class ItemService extends BaseService<Item> {
 
         //保存商品规格参数
         Integer count3 =  itemParamItemService.updateItemParamItem(item.getId(),itemParams);
+
+
+        //通知其他系统删除缓存
+        String url1 = TAOTAO_WEB_URL + "/item/cache/" + item.getId() + ".html";
+//        String url2 = TAOTAO_WEB_URL + "/itemDesc/cache/" + item.getId() + ".html";
+//        String url3 = TAOTAO_WEB_URL + "/itemParamItem/cache/" + item.getId() + ".html";
+        try {
+            this.apiService.doPost(url1);
+//            this.apiService.doPost(url2);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return count1.intValue() == 1 && count2.intValue() == 1 && count3.intValue() == 1;
     }
 }

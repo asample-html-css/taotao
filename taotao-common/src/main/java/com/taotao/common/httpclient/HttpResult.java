@@ -1,4 +1,4 @@
-package com.taotao.web.controller.httpclient;
+package com.taotao.common.httpclient;
 
 /**
  * Created by yangdongan on 2017/6/9 0009.

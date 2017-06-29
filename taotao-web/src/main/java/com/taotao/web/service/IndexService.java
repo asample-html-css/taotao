@@ -3,6 +3,7 @@ package com.taotao.web.service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.taotao.common.service.ApiService;
 import com.taotao.common.service.RedisService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +53,7 @@ public class IndexService   {
  * 真的是越来越坑了
  * 要想实现首页大广告实现缓存的话  redisServie就应该放在taotao-common中  而不是taotao-service
  */
-        //首先到缓存中命中
+//        //首先到缓存中命中
         String cacheData1 =redisService.getCacheString(REDIS_INDEXAD1);
         if (cacheData1!=null){
             return  cacheData1;
@@ -109,7 +110,7 @@ public class IndexService   {
      * @return
      */
     public String queryIndexAd2() {
-        String cacheData2 =redisService.getCacheString(REDIS_INDEXAD1);
+        String cacheData2 =redisService.getCacheString(REDIS_INDEXAD2);
         if (cacheData2!=null){
             return  cacheData2;
         }
@@ -157,6 +158,4 @@ public class IndexService   {
         }
         return  null;
     }
-
-
 }

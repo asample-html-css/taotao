@@ -24,10 +24,9 @@
  * <http://www.apache.org/>.
  *
  */
-package com.taotao.web.controller.httpclient;
+package com.taotao.common.httpclient;
 
 import org.apache.http.conn.HttpClientConnectionManager;
-
 
 
 public  class IdleConnectionEvictor extends Thread {
