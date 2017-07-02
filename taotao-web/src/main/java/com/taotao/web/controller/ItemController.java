@@ -23,7 +23,7 @@ public class ItemController {
     private ItemService itemService;
 
     @RequestMapping(value = "{itemId}",method = RequestMethod.GET)
-    public ModelAndView item(@PathVariable Long itemId){
+    public ModelAndView item(@PathVariable("itemId") Long itemId){
         ModelAndView mv = new ModelAndView("item");
 
         //商品基本信息

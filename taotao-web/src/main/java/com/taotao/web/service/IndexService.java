@@ -38,9 +38,10 @@ public class IndexService   {
     private RedisService redisService;
 
 
-    private static String REDIS_INDEXAD1 = "TAOTAO_WEB_INDEXAD1";
+    public static String REDIS_INDEXAD1 = "TAOTAO_WEB_INDEXAD1";
 
-    private static String REDIS_INDEXAD2 = "TAOTAO_WEB_INDEXAD2";
+    public static String REDIS_INDEXAD2 = "TAOTAO_WEB_INDEXAD2";
+
 
     private static Integer REDIS_TIME = 60 * 60 * 24 * 90;
 
@@ -54,13 +55,13 @@ public class IndexService   {
  * 要想实现首页大广告实现缓存的话  redisServie就应该放在taotao-common中  而不是taotao-service
  */
 //        //首先到缓存中命中
-        String cacheData1 =redisService.getCacheString(REDIS_INDEXAD1);
-        if (cacheData1!=null){
-            return  cacheData1;
-        }
-        //查数据库
-        try {
-            //获取原生json数据
+            String cacheData1 =redisService.getCacheString(REDIS_INDEXAD1);
+            if (cacheData1!=null){
+                return  cacheData1;
+            }
+            //查数据库
+            try {
+                //获取原生json数据
             String url = AD_BASE_URL + AD1_URL;
             //此处返回的是json数据
             String jsonData =  apiService.doGet(url);

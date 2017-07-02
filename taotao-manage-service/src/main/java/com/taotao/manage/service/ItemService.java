@@ -90,30 +90,40 @@ public class ItemService extends BaseService<Item> {
      * @return
      */
     public Boolean updateItem(Item item, String desc,String itemParams) {
+        //获取通知其他系统路径
+        String url1 = TAOTAO_WEB_URL + "/item/cache/" + item.getId() + ".html";
+        String url2 = TAOTAO_WEB_URL + "/itemDesc/cache/" + item.getId() + ".html";
+        String url3 = TAOTAO_WEB_URL + "/itemParamItem/cache/" + item.getId() + ".html";
+
         //强制设置不能更新的字段为空
         item.setStatus(null);
         item.setCreated(null);
-
         Integer count1 =  super.updateSelective(item);
+        //通知其他系统删除缓存
+        try {
+            this.apiService.doPost(url1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         //保存ItemDesc
         ItemDesc itemDesc = new ItemDesc();
         itemDesc.setItemId(item.getId());
         itemDesc.setItemDesc(desc);
         Integer count2 =  itemDescService.updateSelective(itemDesc);
+        //通知其他系统删除缓存
+        try {
+            this.apiService.doPost(url2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         //保存商品规格参数
         Integer count3 =  itemParamItemService.updateItemParamItem(item.getId(),itemParams);
-
-
         //通知其他系统删除缓存
-        String url1 = TAOTAO_WEB_URL + "/item/cache/" + item.getId() + ".html";
-//        String url2 = TAOTAO_WEB_URL + "/itemDesc/cache/" + item.getId() + ".html";
-//        String url3 = TAOTAO_WEB_URL + "/itemParamItem/cache/" + item.getId() + ".html";
         try {
-            this.apiService.doPost(url1);
-//            this.apiService.doPost(url2);
-        } catch (IOException e) {
+            this.apiService.doPost(url3);
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

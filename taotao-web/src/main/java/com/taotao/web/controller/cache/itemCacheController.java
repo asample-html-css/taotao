@@ -20,11 +20,11 @@ public class itemCacheController {
     private RedisService redisService;
 
     @RequestMapping(value = "{itemId}",method = RequestMethod.POST)
-    public ResponseEntity<Void> deleteItemCache(@PathVariable Long itemId){
+    public ResponseEntity<Void> deleteItemCache(@PathVariable("itemId") Long itemId){
 
         try {
             String key = ItemService.REDIS_ITEM + itemId;
-            redisService.del(key);
+            this.redisService.del(key);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         } catch (Exception e) {
             e.printStackTrace();

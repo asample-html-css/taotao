@@ -3,9 +3,11 @@ package com.taotao.manage.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.taotao.common.bean.EasyUIResult;
+import com.taotao.common.service.ApiService;
 import com.taotao.manage.mapper.ContentMapper;
 import com.taotao.manage.pojo.Content;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +21,12 @@ public class ContentService extends BaseService<Content> {
     @Autowired
     private ContentMapper contentMapper;
 
+    @Autowired
+    private ApiService apiService;
+
+    @Value("${TAOTAO_WEB_URL}")
+    private String TAOTAO_WEB_URL;
+
     /**
      * 查询内容列表
      * @param categoryId
@@ -31,5 +39,22 @@ public class ContentService extends BaseService<Content> {
         List<Content> list = contentMapper.queryContentListByCategoryId(categoryId);
         PageInfo<Content> pageInfo = new PageInfo<Content>(list);
         return new EasyUIResult(pageInfo.getTotal(),pageInfo.getList());
+    }
+
+    /**
+     * 插入 更新 内容
+     * @param content
+     * @return
+     */
+    public void saveContent(Content content) {
+        //插入 更新 内容的时候通知其他系统清空缓存
+        String url = TAOTAO_WEB_URL + "/content/cache.html";
+        try {
+            this.apiService.doPost(url);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //插入 更新数据
+        super.saveSelective(content);
     }
 }

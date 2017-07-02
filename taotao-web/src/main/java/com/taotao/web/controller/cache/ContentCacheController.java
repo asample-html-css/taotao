@@ -1,6 +1,7 @@
 package com.taotao.web.controller.cache;
 
 import com.taotao.common.service.RedisService;
+import com.taotao.web.service.IndexService;
 import com.taotao.web.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,17 +15,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * Created by dd876799869 on 2017/6/29.
  */
 @Controller
-@RequestMapping("itemDesc/cache")
-public class itemDescCacheController {
+@RequestMapping("content/cache")
+public class ContentCacheController {
     @Autowired
     private RedisService redisService;
 
-    @RequestMapping(value = "{itemId}",method = RequestMethod.POST)
-    public ResponseEntity<Void> deleteItemDescCache(@PathVariable("itemId") Long itemId){
-
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<Void> deleteItemCache(){
         try {
-            String key = ItemService.REDIS_ITEM_DESC+ itemId;
-            redisService.del(key);
+            String key1 = IndexService.REDIS_INDEXAD1;//更新大广告
+            String key2 = IndexService.REDIS_INDEXAD2;//更新小广告
+            this.redisService.del(key1);
+            this.redisService.del(key2);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         } catch (Exception e) {
             e.printStackTrace();

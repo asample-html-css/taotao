@@ -1,9 +1,11 @@
 package com.taotao.manage.controller;
 
 import com.taotao.common.bean.EasyUIResult;
+import com.taotao.common.service.ApiService;
 import com.taotao.manage.pojo.Content;
 import com.taotao.manage.service.ContentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,13 @@ public class ContentController {
     @Autowired
     private ContentService contentService;
 
+    @Autowired
+    private ApiService apiService;
+
+    @Value("${TAOTAO_WEB_URL}")
+    private String TAOTAO_WEB_URL;
+
+
     /**
      * 新增内容
      * @return
@@ -29,7 +38,7 @@ public class ContentController {
     public ResponseEntity<Content> saveContent(Content content) {
         try {
             content.setId(null);
-            this.contentService.saveSelective(content);
+            this.contentService.saveContent(content);
             return ResponseEntity.status(HttpStatus.CREATED).body(content);//400
         } catch (Exception e) {
             e.printStackTrace();

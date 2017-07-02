@@ -55,15 +55,15 @@ public class ItemService {
      */
     public Item queryItemById(Long itemId){
         //首先到缓存中命中
-        String jsonData =redisService.getCacheString(REDIS_ITEM + itemId);
-        if (StringUtils.isNotEmpty(jsonData)){
-            try {
-                return MAPPER.readValue(jsonData,Item.class);
-            } catch (IOException e) {
-                e.printStackTrace();
+            String jsonData =redisService.getCacheString(REDIS_ITEM + itemId);
+            if (StringUtils.isNotEmpty(jsonData)){
+                try {
+                    return MAPPER.readValue(jsonData,Item.class);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-        }
-        try {
+            try {
             //获取原生json数据
             String url = ITEM_BASE_URL + "/"+ itemId;
             //此处返回的是json数据

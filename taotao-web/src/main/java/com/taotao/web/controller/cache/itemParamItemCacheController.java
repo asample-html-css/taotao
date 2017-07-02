@@ -20,7 +20,7 @@ public class itemParamItemCacheController {
     private RedisService redisService;
 
     @RequestMapping(value = "{itemId}",method = RequestMethod.POST)
-    public ResponseEntity<Void> deleteItemParamItemCache(@PathVariable Long itemId){
+    public ResponseEntity<Void> deleteItemParamItemCache(@PathVariable("itemId") Long itemId){
 
         try {
             String key = ItemService.REDIS_ITEM_PARAM_ITEM+ itemId;
