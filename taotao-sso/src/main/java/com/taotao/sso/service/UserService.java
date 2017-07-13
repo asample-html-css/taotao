@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.Date;
 
 /**
@@ -90,5 +91,26 @@ public class UserService {
         String token = DigestUtils.md5Hex(user.getPassword() + username + System.currentTimeMillis());
         this.redisService.set("TOKEN_" + token, mapper.writeValueAsString(user), 60 * 30);
         return token;
+    }
+
+    /**
+     * 根据token查询
+     * @param token
+     * @return
+     */
+    public User queryByToken(String token) {
+        String key = "TOKEN_" + token;
+        String jsonData = redisService.get(key);
+        if (jsonData == null) {
+            return null;
+        }
+        //非常重要  重新刷新缓存时间
+        redisService.expire(key, 60 * 30);
+        try {
+            return mapper.readValue(jsonData, User.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

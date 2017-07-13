@@ -143,6 +143,29 @@ public class UserController {
     }
 
 
+    /**
+     * 根据token查询用户信息
+     * @return
+     */
+    @RequestMapping(value = "{token}",method = RequestMethod.GET)
+    public ResponseEntity<User> queryByToken(@PathVariable("token")String token){
+
+        try {
+            User user = this.userService.queryByToken(token);
+            if (user == null){
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            }
+            return ResponseEntity.ok(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+    }
+
+
+
+
+
 
 
 

@@ -10,6 +10,11 @@
 
 	<!-- 注解驱动 -->
 	<mvc:annotation-driven>
+		<mvc:message-converters register-defaults="true">
+			<bean class="com.taotao.common.spring.exetend.converter.json.CallbackMappingJackson2HttpMessageConverter">
+				<property name="callbackName" value="callback"/>
+			</bean>
+		</mvc:message-converters>
 	</mvc:annotation-driven>
 
 
