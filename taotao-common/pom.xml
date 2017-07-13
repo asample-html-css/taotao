@@ -66,6 +66,14 @@
             <version>4.3.5</version>
         </dependency>
 
+        <!-- apache加密解密 -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.9</version>
+        </dependency>
+
+
 
     </dependencies>
 

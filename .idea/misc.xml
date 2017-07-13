@@ -3,6 +3,7 @@
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/itcasthttpClient" />
     <file type="web" url="file://$PROJECT_DIR$/itcastRedis" />
+    <file type="web" url="file://$PROJECT_DIR$/PAY" />
     <file type="web" url="file://$PROJECT_DIR$/taotao-manage-mapper" />
     <file type="web" url="file://$PROJECT_DIR$/taotao-manage-pojo" />
     <file type="web" url="file://$PROJECT_DIR$/taotao-manage-service" />
