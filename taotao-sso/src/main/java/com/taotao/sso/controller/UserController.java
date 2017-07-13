@@ -1,8 +1,10 @@
 package com.taotao.sso.controller;
 
+import com.taotao.common.utils.CookieUtils;
 import com.taotao.sso.pojo.User;
 import com.taotao.sso.service.UserService;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +33,10 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    private static String COOKIE_NAME = "TT_LOGIN";
+
+
 
     /**
      * 注册页面
@@ -112,9 +120,26 @@ public class UserController {
      */
     @RequestMapping(value = "doLogin",method = RequestMethod.POST)
     @ResponseBody
-    public Map<String,Object> doLogin(User user){
+    public Map<String,Object> doLogin(@Param("username") String username, @Param("password") String password,
+                                      HttpServletRequest request, HttpServletResponse response){
+        Map<String,Object> result = new HashMap<String,Object>();
+        try {
+            String token = userService.doLogin(username,password);
+            if (token == null){
+                //登录失败
+                result.put("status",400);
+            }else{
+                //登录成功  将token保存到cookie中
+                result.put("status",200);
+                CookieUtils.setCookie(request,response,COOKIE_NAME,token);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            //登录失败
+            result.put("status",500);
+        }
 
-        return null;
+        return result;
     }
 
 
