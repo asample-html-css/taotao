@@ -27,7 +27,7 @@
       <module name="taotao-manage-pojo" target="1.5" />
       <module name="taotao-manage-service" target="1.6" />
       <module name="taotao-manage-web" target="1.5" />
-      <module name="taotao-order" target="1.5" />
+      <module name="taotao-order" target="1.6" />
       <module name="taotao-parent" target="1.5" />
       <module name="taotao-sso" target="1.6" />
       <module name="taotao-web" target="1.6" />
