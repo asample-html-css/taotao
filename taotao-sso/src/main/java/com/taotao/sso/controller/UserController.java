@@ -129,6 +129,10 @@ public class UserController {
                 //登录失败
                 result.put("status",400);
             }else{
+
+                System.out.println(request.getRequestURI());
+                System.out.println(request.getRequestURL());
+
                 //登录成功  将token保存到cookie中
                 result.put("status",200);
                 CookieUtils.setCookie(request,response,COOKIE_NAME,token);
