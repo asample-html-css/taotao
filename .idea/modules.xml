@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/itcastRedis/itcastRedis.iml" filepath="$PROJECT_DIR$/itcastRedis/itcastRedis.iml" />
-      <module fileurl="file://$PROJECT_DIR$/itcastSolrj/itcastSolrj.iml" filepath="$PROJECT_DIR$/itcastSolrj/itcastSolrj.iml" />
       <module fileurl="file://$PROJECT_DIR$/itcasthttpClient/itcasthttpClient.iml" filepath="$PROJECT_DIR$/itcasthttpClient/itcasthttpClient.iml" />
       <module fileurl="file://$PROJECT_DIR$/taotao-order/src/main/main.iml" filepath="$PROJECT_DIR$/taotao-order/src/main/main.iml" />
       <module fileurl="file://$PROJECT_DIR$/taotao-common/taotao-common.iml" filepath="$PROJECT_DIR$/taotao-common/taotao-common.iml" />
@@ -14,6 +13,7 @@
       <module fileurl="file://$PROJECT_DIR$/taotao-manage-web/taotao-manage-web.iml" filepath="$PROJECT_DIR$/taotao-manage-web/taotao-manage-web.iml" />
       <module fileurl="file://$PROJECT_DIR$/taotao-order/taotao-order.iml" filepath="$PROJECT_DIR$/taotao-order/taotao-order.iml" />
       <module fileurl="file://$PROJECT_DIR$/taotao-parent.iml" filepath="$PROJECT_DIR$/taotao-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/taotao-search/taotao-serch.iml" filepath="$PROJECT_DIR$/taotao-search/taotao-serch.iml" />
       <module fileurl="file://$PROJECT_DIR$/taotao-sso/taotao-sso.iml" filepath="$PROJECT_DIR$/taotao-sso/taotao-sso.iml" />
       <module fileurl="file://$PROJECT_DIR$/taotao-web/taotao-web.iml" filepath="$PROJECT_DIR$/taotao-web/taotao-web.iml" />
     </modules>

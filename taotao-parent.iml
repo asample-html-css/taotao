@@ -9,6 +9,9 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/itcast-httpclient/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/itcast-httpclient/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/itcastSolrj/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/itcastSolrj/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/itcastSolrj/src/test/java" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
