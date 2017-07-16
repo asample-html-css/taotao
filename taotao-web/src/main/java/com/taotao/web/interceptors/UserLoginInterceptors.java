@@ -3,6 +3,7 @@ package com.taotao.web.interceptors;
 import com.taotao.common.utils.CookieUtils;
 import com.taotao.web.bean.User;
 import com.taotao.web.service.UserService;
+import com.taotao.web.thread.UserThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -29,6 +30,8 @@ public class UserLoginInterceptors implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
        String loginUrl = userService.TAOTAO_SSO_URL + "/user/login";
 
+        UserThreadLocal.set(null);//得益于tomcat线程池的机制  本地线程类是可复用的 必须清空
+
 //        String loginUrl = "http://sso.taotao.com/service/user/login";
 
         //1,判断cookie中是否存在token
@@ -44,6 +47,7 @@ public class UserLoginInterceptors implements HandlerInterceptor {
             return false;
         }
         //走到这里 登录成功 返回确认订单页  放行
+        UserThreadLocal.set(user); //将拦截器查寻的User保存到本地线程中 传递到controller
         return true;
     }
 

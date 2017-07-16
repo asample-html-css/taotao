@@ -32,40 +32,37 @@ public class OrderController {
 
     /**
      * 跳转到指定商品的确认订单结算页面
+     *
      * @param itemId
      * @return
      */
-    @RequestMapping(value = "{itemId}",method = RequestMethod.GET)
-    public ModelAndView toOrder(@PathVariable("itemId") Long itemId){
+    @RequestMapping(value = "{itemId}", method = RequestMethod.GET)
+    public ModelAndView toOrder(@PathVariable("itemId") Long itemId) {
         ModelAndView mv = new ModelAndView("order");
         //商品基本信息
         Item item = itemService.queryItemById(itemId);
-        mv.addObject("item",item);
+        mv.addObject("item", item);
         return mv;
     }
 
     /**
      * 提交订单
+     *
      * @param order
      * @return
      */
-    @RequestMapping(value = "submit",method = RequestMethod.POST)
+    @RequestMapping(value = "submit", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String,Object> submit(Order order,
-                                     @CookieValue(COOKIE_NAME) String token){
-        Map<String,Object> result = new HashMap<String, Object>();
-        //首先从cookie中补全用户信息
-        User user = userService.queryUserByToken(token);
-        order.setUserId(user.getId());
-        order.setBuyerNick(user.getUsername());
+    public Map<String, Object> submit(Order order) {
+        Map<String, Object> result = new HashMap<String, Object>();
         //提交订单,应该通过httpClient提交
-       String orderId =  orderService.submitOrder(order);
-       if (orderId == null){
-           result.put("status",500);
-       }else{
-           result.put("status",200);
-           result.put("data",orderId);
-       }
+        String orderId = orderService.submitOrder(order);
+        if (orderId == null) {
+            result.put("status", 500);
+        } else {
+            result.put("status", 200);
+            result.put("data", orderId);
+        }
         return result;
     }
 
