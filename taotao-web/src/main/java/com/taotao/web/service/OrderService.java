@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+
 /**
  * Created by dd876799869 on 2017/7/15.
  */
@@ -49,6 +51,24 @@ public class OrderService {
                 }
             }
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 根据订单ID查寻订单信息
+     * @param orderId
+     * @return
+     */
+    public Order queryOrder(String orderId) {
+        String orderUrl = TAOTAO_ORDER_URL + "/order/query/" + orderId;
+        try {
+            String jsonData  = apiService.doGet(orderUrl);
+            if (jsonData != null){
+                return  mapper.readValue(jsonData,Order.class);
+            }
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return null;

@@ -7,6 +7,7 @@ import com.taotao.web.bean.User;
 import com.taotao.web.service.ItemService;
 import com.taotao.web.service.OrderService;
 import com.taotao.web.service.UserService;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.taotao.web.interceptors.UserLoginInterceptors.COOKIE_NAME;
 
 /**
  * Created by yangdongan on 2017/7/14 0006.
@@ -64,6 +63,23 @@ public class OrderController {
             result.put("data", orderId);
         }
         return result;
+    }
+
+    /**
+     * 返回成功页面
+     * http://www.taotao.com/order/success.html?id=91500174118363   id是问号之后的携带参数   并不是在路径里面的
+     * 所以RequestParam 而不是 占位符
+     * @param orderId
+     * @return
+     */
+    @RequestMapping(value = "success", method = RequestMethod.GET)
+    public ModelAndView success(@RequestParam("id") String orderId) {
+        ModelAndView mv = new ModelAndView("success");
+        //查寻订单信息
+        Order order = orderService.queryOrder(orderId);
+        mv.addObject("order",order);
+        mv.addObject("date",new DateTime().plusDays(2).toString("MM月dd日"));
+        return mv;
     }
 
 }

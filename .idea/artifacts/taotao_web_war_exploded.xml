@@ -38,6 +38,7 @@
             <element id="module-output" name="taotao-manage-pojo" />
           </element>
           <element id="library" level="project" name="Maven: javax.persistence:persistence-api:1.0" />
+          <element id="library" level="project" name="Maven: joda-time:joda-time:2.5" />
         </element>
       </element>
       <element id="directory" name="META-INF">
