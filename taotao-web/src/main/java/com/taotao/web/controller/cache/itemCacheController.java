@@ -21,7 +21,6 @@ public class itemCacheController {
 
     @RequestMapping(value = "{itemId}",method = RequestMethod.POST)
     public ResponseEntity<Void> deleteItemCache(@PathVariable("itemId") Long itemId){
-
         try {
             String key = ItemService.REDIS_ITEM + itemId;
             this.redisService.del(key);

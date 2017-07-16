@@ -93,7 +93,7 @@ public class ItemService extends BaseService<Item> {
         //获取通知其他系统路径
         String url1 = TAOTAO_WEB_URL + "/item/cache/" + item.getId() + ".html";
         String url2 = TAOTAO_WEB_URL + "/itemDesc/cache/" + item.getId() + ".html";
-        String url3 = TAOTAO_WEB_URL + "/itemParamItem/cache/" + item.getId() + ".html";
+//        String url3 = TAOTAO_WEB_URL + "/itemParamItem/cache/" + item.getId() + ".html";
 
         //强制设置不能更新的字段为空
         item.setStatus(null);
@@ -121,11 +121,11 @@ public class ItemService extends BaseService<Item> {
         //保存商品规格参数
         Integer count3 =  itemParamItemService.updateItemParamItem(item.getId(),itemParams);
         //通知其他系统删除缓存
-        try {
-            this.apiService.doPost(url3);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            this.apiService.doPost(url3);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
         return count1.intValue() == 1 && count2.intValue() == 1 && count3.intValue() == 1;
     }

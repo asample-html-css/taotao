@@ -3,39 +3,156 @@
 
 改编自传智播客大型分布式网络商城 淘淘商城项目  jdk1.8 + idea + git
 
-一、idea相关配置
 
-1、nginx:
+一、nginx.conf:
 
-后台系统
+
+ server {
+        listen       80;
+        server_name  solr.taotao.com;
+
+        #charset koi8-r;
+
+        #access_log  logs/host.access.log  main;
+
+	proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+	proxy_set_header Host $host;
+
+        location / {
+	    proxy_pass http://127.0.0.1:8983;
+	    proxy_connect_timeout 600;
+	    proxy_read_timeout 600;
+        }
+        
+    }
+
+
+ server {
+        listen       80;
+        server_name  order.taotao.com;
+
+        #charset koi8-r;
+
+        #access_log  logs/host.access.log  main;
+
+	proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+        location / {
+	    proxy_pass http://127.0.0.1:8084;
+	    proxy_connect_timeout 600;
+	    proxy_read_timeout 600;
+        }
+        
+    }
+
+
+server {
+        listen       80;
+        server_name  sso.taotao.com;
+    
+        #charset koi8-r;
+    
+        #access_log  logs/host.access.log  main;
+    
+    	proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+	proxy_set_header Host $host;
+    
+        location / {
+    	    proxy_pass http://127.0.0.1:8083;
+    	    proxy_connect_timeout 600;
+    	    proxy_read_timeout 600;
+        }
+        
+    } 
+
+
 server {
         listen       80;
         server_name  manage.taotao.com;
+    
+        #charset koi8-r;
+    
+        #access_log  logs/host.access.log  main;
+    
+    	proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    
         location / {
     	    proxy_pass http://127.0.0.1:8082;
+    	    proxy_connect_timeout 600;
+    	    proxy_read_timeout 600;
         }
+        
     } 
 
-前台系统
+
  server {
         listen       80;
         server_name  www.taotao.com taotao.com;
+
+        #charset koi8-r;
+
+        #access_log  logs/host.access.log  main;
+
+	proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
         location / {
 	    proxy_pass http://127.0.0.1:8081;
+	    proxy_connect_timeout 600;
+	    proxy_read_timeout 600;
         }
+        
     }
 
-//图片服务器
+
     server {
         listen       80;
         server_name  image.taotao.com;
+
+        #charset koi8-r;
+
+        #access_log  logs/host.access.log  main;
+
+	proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
         location / {
 	    root  D:\\taotao-upload;
         }
+        
     }
-}
 
-2.tomcat配置
+
+    server {
+        listen       80;
+        server_name  static.taotao.com;
+
+        #charset koi8-r;
+
+        #access_log  logs/host.access.log  main;
+
+	proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+        location / {
+	    root  D:\\taotao-static;
+        }
+        
+    }
+
+
+二.tomcat配置
 后台系统 taotao-manage
 http://localhost:8082/  
 JMX port  1092
@@ -44,8 +161,31 @@ JMX port  1092
 http://localhost:8081/  
 JMX port  1091
 
+单点登录系统 taotao-sso
+http://localhost:8083/  
+JMX port  1093
 
-二、前台首页广告数据结构分析
+订单系统 taotao-order
+http://localhost:8084/  
+JMX port  1094
+
+
+三.域名映射  C:\Windows\System32\drivers\etc\hosts
+
+127.0.0.1 manage.taotao.com
+127.0.0.1 image.taotao.com
+127.0.0.1 order.taotao.com
+127.0.0.1 www.taotao.com
+127.0.0.1 sso.taotao.com
+127.0.0.1 solr.taotao.com
+127.0.0.1 static.taotao.com
+127.0.0.1 localhost
+
+
+
+
+
+四、前台首页广告数据结构分析
 
 图一：从数据库获取的原生数据
 
