@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/itcast-solrj" />
     <file type="web" url="file://$PROJECT_DIR$/itcasthttpClient" />
     <file type="web" url="file://$PROJECT_DIR$/itcastRedis" />
     <file type="web" url="file://$PROJECT_DIR$/PAY" />
@@ -31,6 +32,8 @@
         <option value="D:/传智播客/淘淘商城29期/课前资料/day07（淘淘商城06 - 订单系统、Quartz入门）/开发资料/taotao-order/pom.xml" />
         <option value="D:/java/传智播客/淘淘商城29期/课前资料/day08（淘淘商城07 - Solr入门以及搜索系统实现）/相关资料/itcast-solrj/pom.xml" />
         <option value="$PROJECT_DIR$/taotao-serch/pom.xml" />
+        <option value="$PROJECT_DIR$/taotao-search/pom.xml" />
+        <option value="$PROJECT_DIR$/itcast-solrj/pom.xml" />
       </list>
     </option>
   </component>

@@ -12,6 +12,8 @@
       <sourceFolder url="file://$MODULE_DIR$/itcastSolrj/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/itcastSolrj/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/itcastSolrj/src/test/java" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/itcastSolrj/target" />
+      <excludeFolder url="file://$MODULE_DIR$/taotao-search/target" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
