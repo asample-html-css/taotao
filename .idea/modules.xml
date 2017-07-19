@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/itcast-rabbitmq/itcast-rabbitmq.iml" filepath="$PROJECT_DIR$/itcast-rabbitmq/itcast-rabbitmq.iml" />
       <module fileurl="file://$PROJECT_DIR$/itcast-solrj/itcast-solrj.iml" filepath="$PROJECT_DIR$/itcast-solrj/itcast-solrj.iml" />
       <module fileurl="file://$PROJECT_DIR$/itcastRedis/itcastRedis.iml" filepath="$PROJECT_DIR$/itcastRedis/itcastRedis.iml" />
       <module fileurl="file://$PROJECT_DIR$/itcasthttpClient/itcasthttpClient.iml" filepath="$PROJECT_DIR$/itcasthttpClient/itcasthttpClient.iml" />
