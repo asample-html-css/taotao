@@ -28,19 +28,11 @@ public class Item {
     @Field("status")
     private Integer status;
 
-    @Field("created")
-    private Long created;
+
 
     @Field("updated")
     private Long updated;
 
-    public Long getCreated() {
-        return created;
-    }
-
-    public void setCreated(Long created) {
-        this.created = created;
-    }
 
     public Long getUpdated() {
         return updated;

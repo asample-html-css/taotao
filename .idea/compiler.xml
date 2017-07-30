@@ -27,7 +27,6 @@
       <module name="itcast-solrj" target="1.6" />
       <module name="itcasthttpClient" target="1.5" />
       <module name="itcastRedis" target="1.5" />
-      <module name="itcastSolrj" target="1.5" />
       <module name="taotao-common" target="1.6" />
       <module name="taotao-manage" target="1.5" />
       <module name="taotao-manage-mapper" target="1.5" />
@@ -37,7 +36,6 @@
       <module name="taotao-order" target="1.6" />
       <module name="taotao-parent" target="1.5" />
       <module name="taotao-search" target="1.6" />
-      <module name="taotao-serch" target="1.5" />
       <module name="taotao-sso" target="1.6" />
       <module name="taotao-web" target="1.6" />
     </bytecodeTargetLevel>
