@@ -10,6 +10,7 @@
         <module name="itcast-solrj" />
         <module name="itcasthttpClient" />
         <module name="itcastRedis" />
+        <module name="taotao-cart" />
         <module name="taotao-common" />
         <module name="taotao-manage-mapper" />
         <module name="taotao-manage-pojo" />
@@ -27,6 +28,7 @@
       <module name="itcast-solrj" target="1.6" />
       <module name="itcasthttpClient" target="1.5" />
       <module name="itcastRedis" target="1.5" />
+      <module name="taotao-cart" target="1.6" />
       <module name="taotao-common" target="1.6" />
       <module name="taotao-manage" target="1.5" />
       <module name="taotao-manage-mapper" target="1.5" />

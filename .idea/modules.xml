@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/itcast-solrj/itcast-solrj.iml" filepath="$PROJECT_DIR$/itcast-solrj/itcast-solrj.iml" />
       <module fileurl="file://$PROJECT_DIR$/itcastRedis/itcastRedis.iml" filepath="$PROJECT_DIR$/itcastRedis/itcastRedis.iml" />
       <module fileurl="file://$PROJECT_DIR$/itcasthttpClient/itcasthttpClient.iml" filepath="$PROJECT_DIR$/itcasthttpClient/itcasthttpClient.iml" />
+      <module fileurl="file://$PROJECT_DIR$/taotao-cart/taotao-cart.iml" filepath="$PROJECT_DIR$/taotao-cart/taotao-cart.iml" />
       <module fileurl="file://$PROJECT_DIR$/taotao-common/taotao-common.iml" filepath="$PROJECT_DIR$/taotao-common/taotao-common.iml" />
       <module fileurl="file://$PROJECT_DIR$/taotao-manage/taotao-manage.iml" filepath="$PROJECT_DIR$/taotao-manage/taotao-manage.iml" />
       <module fileurl="file://$PROJECT_DIR$/taotao-manage-mapper/taotao-manage-mapper.iml" filepath="$PROJECT_DIR$/taotao-manage-mapper/taotao-manage-mapper.iml" />
