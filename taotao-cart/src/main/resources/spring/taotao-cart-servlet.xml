@@ -23,12 +23,12 @@
     </bean>
 
     <!-- 配置登录拦截器 -->
-    <!--<mvc:interceptors>-->
-        <!--<mvc:interceptor>-->
-            <!--<mvc:mapping path="/cart/**"/>-->
-            <!--<bean class="com.taotao.cart.interceptors.UserLoginInterceptors"/>-->
-        <!--</mvc:interceptor>-->
-    <!--</mvc:interceptors>-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/cart/**"/>
+            <bean class="com.taotao.cart.interceptors.UserLoginInterceptors"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
 
 </beans>
