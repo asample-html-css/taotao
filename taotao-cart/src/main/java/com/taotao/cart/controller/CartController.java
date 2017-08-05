@@ -4,8 +4,9 @@ import com.taotao.cart.pojo.Cart;
 import com.taotao.cart.pojo.User;
 import com.taotao.cart.service.CartService;
 import com.taotao.cart.thread.UserThreadLocal;
-import com.taotao.common.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,8 +29,13 @@ public class CartController {
     private CartService cartService;
 
 
+    /**
+     * 跳转到购物车列表
+     *
+     * @return
+     */
     @RequestMapping(value = "list", method = RequestMethod.GET)
-    public ModelAndView cartList(HttpServletRequest request) {
+    public ModelAndView toCartList(HttpServletRequest request) {
         ModelAndView mv = new ModelAndView("cart");
         User user = UserThreadLocal.get();
         List<Cart> cartList = null;
@@ -37,6 +43,7 @@ public class CartController {
             // 未登录状态
         } else {
             // 登录状态
+            cartList = cartService.queryCartList();
         }
         mv.addObject("cartList", cartList);
         return mv;
@@ -63,6 +70,49 @@ public class CartController {
         }
 
         // 重定向到购物车列表页面
+        return "redirect:/cart/list.html";
+    }
+
+
+    /**
+     * 修改商品数量
+     *
+     * @param itemId
+     * @return
+     */
+    @RequestMapping(value = "update/num/{itemId}/{num}", method = RequestMethod.POST)
+    public ResponseEntity<Void> updateNum(@PathVariable("itemId") Long itemId,
+                                          @PathVariable("num") Integer num) {
+        User user = UserThreadLocal.get();
+        if (null == user) {
+            // 未登录状态
+
+        } else {
+            // 登录状态 将商品添加到购物车
+            this.cartService.updateNum(itemId, num);
+        }
+
+        // 重定向到购物车列表页面
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    /**
+     * 删除购物车
+     *
+     * @param itemId
+     * @return
+     */
+    @RequestMapping(value = "delete/{itemId}", method = RequestMethod.GET)
+    public String deleteCart(@PathVariable("itemId") Long itemId) {
+        User user = UserThreadLocal.get();
+        if (null == user) {
+            // 未登录状态
+
+        } else {
+            // 登录状态 删除
+            this.cartService.deleteCart(itemId);
+        }
+
         return "redirect:/cart/list.html";
     }
 

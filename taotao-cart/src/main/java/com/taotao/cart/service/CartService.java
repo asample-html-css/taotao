@@ -1,5 +1,6 @@
 package com.taotao.cart.service;
 
+import com.github.abel533.entity.Example;
 import com.taotao.cart.mapper.CartMapper;
 import com.taotao.cart.pojo.Cart;
 import com.taotao.cart.pojo.Item;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by dd876799869 on 2017/7/31.
@@ -61,6 +63,49 @@ public class CartService {
     }
 
 
+    /**
+     * 查询购物车列表
+     * @return
+     */
+    public List<Cart> queryCartList() {
+        Example example = new Example(Cart.class);
+        example.setOrderByClause("created desc");
+        example.createCriteria().andEqualTo("userId",UserThreadLocal.get().getId());
+        return this.cartMapper.selectByExample(example);
+    }
+
+    /**
+     * 更新商品数量
+     * @param itemId
+     * @param num
+     */
+    public void updateNum(Long itemId, Integer num) {
+        //更新条件
+        Example example = new Example(Cart.class);
+        example.createCriteria().andEqualTo("userId",UserThreadLocal.get().getId())
+                .andEqualTo("itemId",itemId);
+        //更新内容
+        Cart record = new Cart();
+        record.setNum(num);
+        record.setItemId(itemId);
+        this.cartMapper.updateByExampleSelective(record,example);
+
+    }
+
+    /**
+     * 删除购物车商品
+     * @param itemId
+     * @param num
+     */
+    public void deleteCart(Long itemId) {
+
+        Cart record = new Cart();
+        record.setItemId(itemId);
+        record.setUserId(UserThreadLocal.get().getId());
+
+        this.cartMapper.delete(record);
 
 
+
+    }
 }
