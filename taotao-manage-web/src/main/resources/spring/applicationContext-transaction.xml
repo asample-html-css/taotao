@@ -31,6 +31,11 @@
 		</tx:attributes>
 	</tx:advice>
 
+	<bean id="dataSourceAspect" class="com.taotao.manage.controller.datasource.DataSourceAspect"/>
+
+
+
+
 
 
 
@@ -43,6 +48,10 @@
 		<!--将定义好的事务处理策略应用到上述的切入点 -->
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="myPointcut" />
 
+		<!-- 将切面应用到自定义的切面处理器上，-9999保证该切面优先级最高执行 -->
+		<aop:aspect ref="dataSourceAspect" order="-9999">
+			<aop:before method="before" pointcut-ref="myPointcut" />
+		</aop:aspect>
 
 
 	</aop:config>

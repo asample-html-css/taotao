@@ -140,9 +140,9 @@ public class ItemService extends BaseService<Item> {
 
         //保存商品规格参数
         Integer count3 = 1;//有些插入的数据并没有商品参数
-        if (StringUtils.isNotEmpty(itemParams)){
-            count3 = itemParamItemService.updateItemParamItem(item.getId(), itemParams);
-        }
+//        if (StringUtils.isNotEmpty(itemParams.trim())){
+//            count3 = itemParamItemService.updateItemParamItem(item.getId(), itemParams);
+//        }
 
         //通知其他系统删除缓存
 //        try {
