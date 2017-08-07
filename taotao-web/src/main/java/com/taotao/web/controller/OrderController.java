@@ -2,8 +2,10 @@ package com.taotao.web.controller;
 
 
 import com.taotao.manage.pojo.Order;
+import com.taotao.web.bean.Cart;
 import com.taotao.web.bean.Item;
 import com.taotao.web.bean.User;
+import com.taotao.web.service.CartService;
 import com.taotao.web.service.ItemService;
 import com.taotao.web.service.OrderService;
 import com.taotao.web.service.UserService;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,6 +31,10 @@ public class OrderController {
     private OrderService orderService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private CartService cartService;
+
+
 
     /**
      * 跳转到指定商品的确认订单结算页面
@@ -81,5 +88,22 @@ public class OrderController {
         mv.addObject("date",new DateTime().plusDays(2).toString("MM月dd日"));
         return mv;
     }
+
+    /**
+     * 基于购物车的订单确认页
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "create", method = RequestMethod.GET)
+    public ModelAndView toCartOrder() {
+        ModelAndView mv = new ModelAndView("order-cart");
+        //查询购物车信息
+        List<Cart> carts  = this.cartService.queryCartList();
+        mv.addObject("carts", carts);
+        return mv;
+    }
+
+
+
 
 }

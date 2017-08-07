@@ -3,6 +3,7 @@ package com.taotao.cart.controller;
 import com.taotao.cart.pojo.Cart;
 import com.taotao.cart.pojo.User;
 import com.taotao.cart.service.CartService;
+import com.taotao.cart.service.CartCookieService;
 import com.taotao.cart.thread.UserThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,8 @@ public class CartController {
 
     @Autowired
     private CartService cartService;
+    @Autowired
+    private CartCookieService cartCookieService;
 
 
     /**
@@ -40,7 +43,12 @@ public class CartController {
         User user = UserThreadLocal.get();
         List<Cart> cartList = null;
         if (null == user) {
-            // 未登录状态
+            // 未登录状态  查询cookie中的购物车信息
+            try {
+                this.cartCookieService.queryCartList(request);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else {
             // 登录状态
             cartList = cartService.queryCartList();
@@ -56,19 +64,24 @@ public class CartController {
      * @return
      */
     @RequestMapping(value = "{itemId}", method = RequestMethod.GET)
-    public String addItemToCart(@PathVariable("itemId") Long itemId, HttpServletRequest request,
+    public String addItemToCart(@PathVariable("itemId") Long itemId,
+                                HttpServletRequest request,
                                 HttpServletResponse response) {
-
         User user = UserThreadLocal.get();
         if (null == user) {
-            // 未登录状态
-
+            // 未登录状态 将商品保存到cookie中
+            try {
+                System.out.println(request.getRequestURI());
+                System.out.println(request.getRequestURL());
+                System.out.println(response.getOutputStream().toString());
+                this.cartCookieService.addItemToCookieCart(itemId,request,response);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else {
             // 登录状态 将商品添加到购物车
             this.cartService.addItemToCart(itemId);
-
         }
-
         // 重定向到购物车列表页面
         return "redirect:/cart/list.html";
     }
@@ -82,11 +95,17 @@ public class CartController {
      */
     @RequestMapping(value = "update/num/{itemId}/{num}", method = RequestMethod.POST)
     public ResponseEntity<Void> updateNum(@PathVariable("itemId") Long itemId,
-                                          @PathVariable("num") Integer num) {
+                                          @PathVariable("num") Integer num ,
+                                          HttpServletRequest request,
+                                          HttpServletResponse response) {
         User user = UserThreadLocal.get();
         if (null == user) {
-            // 未登录状态
-
+            // 未登录状态 修改cookie中的购物车信息
+            try {
+                this.cartCookieService.updateCookieCart(itemId,num,request,response);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else {
             // 登录状态 将商品添加到购物车
             this.cartService.updateNum(itemId, num);
@@ -103,16 +122,21 @@ public class CartController {
      * @return
      */
     @RequestMapping(value = "delete/{itemId}", method = RequestMethod.GET)
-    public String deleteCart(@PathVariable("itemId") Long itemId) {
+    public String deleteCart(@PathVariable("itemId") Long itemId,
+                             HttpServletRequest request,
+                             HttpServletResponse response) {
         User user = UserThreadLocal.get();
         if (null == user) {
             // 未登录状态
-
+            try {
+                this.cartCookieService.deleteCookieCart(itemId,request,response);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else {
             // 登录状态 删除
             this.cartService.deleteCart(itemId);
         }
-
         return "redirect:/cart/list.html";
     }
 

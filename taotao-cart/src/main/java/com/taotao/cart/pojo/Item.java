@@ -1,12 +1,14 @@
 package com.taotao.cart.pojo;
 
+import org.apache.commons.lang3.StringUtils;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
 
-public class Item  {
+public class Item {
 
     private Long id;
 
@@ -26,9 +28,7 @@ public class Item  {
 
     //====其他属性=====
 
-
     private Integer status;
-
 
 
     private Date created;
@@ -45,6 +45,7 @@ public class Item  {
     public void setUpdated(Date updated) {
         this.updated = updated;
     }
+
 
 
     public Long getId() {
@@ -97,6 +98,11 @@ public class Item  {
 
     public String getImage() {
         return image;
+    }
+
+    //增加一个getImages方法
+    public String[] getImages() {
+        return StringUtils.split(getImage(),',');
     }
 
     public void setImage(String image) {

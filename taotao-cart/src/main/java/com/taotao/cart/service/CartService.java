@@ -62,17 +62,25 @@ public class CartService {
         }
     }
 
-
     /**
      * 查询购物车列表
      * @return
      */
     public List<Cart> queryCartList() {
+        return  this.queryCart(UserThreadLocal.get().getId());
+    }
+
+    /**
+     * 查询购物车列表
+     * @return
+     */
+    public List<Cart> queryCart(Long userId) {
         Example example = new Example(Cart.class);
         example.setOrderByClause("created desc");
-        example.createCriteria().andEqualTo("userId",UserThreadLocal.get().getId());
+        example.createCriteria().andEqualTo("userId",userId);
         return this.cartMapper.selectByExample(example);
     }
+
 
     /**
      * 更新商品数量
@@ -98,14 +106,10 @@ public class CartService {
      * @param num
      */
     public void deleteCart(Long itemId) {
-
         Cart record = new Cart();
         record.setItemId(itemId);
         record.setUserId(UserThreadLocal.get().getId());
-
         this.cartMapper.delete(record);
-
-
-
     }
+
 }

@@ -90,6 +90,10 @@ public final class CookieUtils {
 	 * 设置Cookie的值 不设置生效时间默认浏览器关闭即失效,也不编码
 	 */
 	public static void setCookie(HttpServletRequest request, HttpServletResponse response, String cookieName, String cookieValue) {
+		logger.error("置Cookie的值，并使其在指定时间内生效  request = " + request
+				+ "  response =" + response
+				+ "  cookieName =" + cookieName
+				+ "  cookieValue =" + cookieValue);
 		setCookie(request, response, cookieName, cookieValue, -1);
 	}
 
@@ -134,7 +138,15 @@ public final class CookieUtils {
 	 * @param cookieMaxage
 	 *            cookie生效的最大秒数
 	 */
-	private static final void doSetCookie(HttpServletRequest request, HttpServletResponse response, String cookieName, String cookieValue, int cookieMaxage, boolean isEncode) {
+	private static final void doSetCookie(HttpServletRequest request, HttpServletResponse response,
+										  String cookieName, String cookieValue, int cookieMaxage, boolean isEncode) {
+		logger.error("置Cookie的值，并使其在指定时间内生效  request = " + request
+				+ "  response =" + response
+				+ "  cookieName =" + cookieName
+				+ "  cookieValue =" + cookieValue
+				+ "  cookieMaxage =" + cookieMaxage
+				+ "  isEncode =" + isEncode);
+
 		try {
 			if (cookieValue == null) {
 				cookieValue = "";
@@ -147,7 +159,10 @@ public final class CookieUtils {
 			if (null != request)// 设置域名的cookie
 				cookie.setDomain(getDomainName(request));
 			cookie.setPath("/");
+
+			logger.error("response.addCookie(cookie); ============  cookie =  " + cookie.toString() + "==================");
 			response.addCookie(cookie);
+			logger.error("response.addCookie(cookie); ============  response =  " + response + "==================");
 		} catch (Exception e) {
 			logger.error("Cookie Encode Error.", e);
 		}
