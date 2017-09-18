@@ -18,7 +18,7 @@ public class ItemParam extends BasePojo {
 
     @Column(name = "param_data")
     private String paramData;
-    @Column(name = "name")
+
     private String itemCatName;//商品类目名称
 
     public String getItemCatName() {
