@@ -57,7 +57,7 @@ public class PicUploadController {
 		// 封装Result对象，并且将文件的byte数组放置到result对象中
 		PicUploadResult fileUploadResult = new PicUploadResult();
 
-		// 状态
+		// 状态  0 true 是图片   1 false 不是图片
 		fileUploadResult.setError(isLegal ? 0 : 1);
 
 		// 文件新路径

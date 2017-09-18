@@ -1,24 +1,21 @@
 package com.taotao.manage.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.abel533.entity.Example;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.rabbitmq.client.ConnectionFactory;
 import com.taotao.common.bean.EasyUIResult;
 import com.taotao.common.service.ApiService;
+import com.taotao.manage.mapper.ItemCatMapper;
 import com.taotao.manage.mapper.ItemMapper;
 import com.taotao.manage.pojo.Item;
 import com.taotao.manage.pojo.ItemDesc;
 import com.taotao.manage.pojo.ItemParamItem;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +31,10 @@ public class ItemService extends BaseService<Item> {
     private ItemMapper itemMapper;
     @Autowired
     private ItemParamItemService itemParamItemService;
+
+    @Autowired
+    private ItemCatMapper itemCatMapper;
+
 
     @Autowired
     private ApiService apiService;
@@ -95,7 +96,7 @@ public class ItemService extends BaseService<Item> {
      * @return
      */
     public String queryCname(Long cid) {
-        return "手机" + cid;
+        return itemCatMapper.queryCname(cid);
     }
 
     /**

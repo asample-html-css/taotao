@@ -34,7 +34,7 @@ public class ItemParamService extends BaseService<ItemParam> {
         PageHelper.startPage(page,rows);
         Example example = new Example(ItemParam.class);
         example.setOrderByClause("created desc");
-        List<ItemParam> itemParamlist = this.itemParamMapper.selectByExample(example);
+        List<ItemParam> itemParamlist = this.itemParamMapper.queryItemParamList(page,rows);
         //遍历
 //        for (int i =0;i<itemParamlist.size();i++){
 //            //根据类目id获取类目名称

@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("item")
 public class ItemController {
-
-   private static final Logger LOGGER  = LoggerFactory.getLogger(ItemController.class);
+    private static Logger LOGGER = LoggerFactory.getLogger(ItemController.class);
+//   private static final Logger LOGGER  = LoggerFactory.getLogger(ItemController.class);
 
     @Autowired
     private ItemService itemService;
@@ -69,6 +69,8 @@ public class ItemController {
     public ResponseEntity<EasyUIResult> queryItemList(@RequestParam(value ="page",defaultValue ="1")Integer page,
                                                       @RequestParam(value ="rows",defaultValue ="30")Integer rows){
         try {
+            LOGGER.error("查询商品列表入参! page =",page);
+            LOGGER.error("查询商品列表入参! page ={},rows={}",page,rows);
             return ResponseEntity.ok(this.itemService.queryItemList(page,rows));
         } catch (Exception e) {
             e.printStackTrace();
