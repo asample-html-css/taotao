@@ -108,23 +108,23 @@ public class ItemService extends BaseService<Item> {
      */
     public Boolean updateItem(Item item, String desc, String itemParams) {
         //获取通知其他系统路径
-//        String url1 = TAOTAO_WEB_URL + "/item/cache/" + item.getId() + ".html";
-//        String url2 = TAOTAO_WEB_URL + "/itemDesc/cache/" + item.getId() + ".html";
-//        String url3 = TAOTAO_WEB_URL + "/itemParamItem/cache/" + item.getId() + ".html";
+        String url1 = TAOTAO_WEB_URL + "/item/cache/" + item.getId() + ".html";
+        String url2 = TAOTAO_WEB_URL + "/itemDesc/cache/" + item.getId() + ".html";
+        String url3 = TAOTAO_WEB_URL + "/itemParamItem/cache/" + item.getId() + ".html";
 
         //强制设置不能更新的字段为空
         item.setStatus(null);
         item.setCreated(null);
         Integer count1 = super.updateSelective(item);
         //通知其他系统删除缓存
-//        try {
-//            this.apiService.doPost(url1);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+            this.apiService.doPost(url1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         //发送MQ消息队列
-        this.sendMsg(item.getId(),"update");
+//        this.sendMsg(item.getId(),"update");
 
         //保存ItemDesc
         ItemDesc itemDesc = new ItemDesc();
@@ -133,11 +133,11 @@ public class ItemService extends BaseService<Item> {
         Integer count2 = itemDescService.updateSelective(itemDesc);
 
         //通知其他系统删除缓存
-//        try {
-//            this.apiService.doPost(url2);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+            this.apiService.doPost(url2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         //保存商品规格参数
         Integer count3 = 1;//有些插入的数据并没有商品参数
@@ -146,11 +146,11 @@ public class ItemService extends BaseService<Item> {
 //        }
 
         //通知其他系统删除缓存
-//        try {
-//            this.apiService.doPost(url3);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+            this.apiService.doPost(url3);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return count1.intValue() == 1 && count2.intValue() == 1 && count3.intValue() == 1;
     }

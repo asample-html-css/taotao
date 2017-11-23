@@ -6,9 +6,8 @@
         SELECT
          tip.id,
          tip.item_cat_id itemCatId,
-         tip.param_data paramData,
-         tic.name itemCatName
-         FROM tb_item_cat tic,tb_item_param tip WHERE tic.id=tip.item_cat_id
+         tip.param_data paramData
+         FROM tb_item_param tip
     </select>
 
 

@@ -19,15 +19,15 @@ public class ItemParam extends BasePojo {
     @Column(name = "param_data")
     private String paramData;
 
-    private String itemCatName;//商品类目名称
-
-    public String getItemCatName() {
-        return itemCatName;
-    }
-
-    public void setItemCatName(String itemCatName) {
-        this.itemCatName = itemCatName;
-    }
+//    private String itemCatName;//商品类目名称
+//
+//    public String getItemCatName() {
+//        return itemCatName;
+//    }
+//
+//    public void setItemCatName(String itemCatName) {
+//        this.itemCatName = itemCatName;
+//    }
 
 
 

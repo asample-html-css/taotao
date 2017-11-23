@@ -25,6 +25,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: com.rabbitmq:amqp-client:5.0.0.RC1" level="project" />
+    <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.16.10" level="project" />
     <orderEntry type="module" module-name="taotao-manage-service" />
     <orderEntry type="module" module-name="taotao-manage-mapper" />
     <orderEntry type="module" module-name="taotao-manage-pojo" />
