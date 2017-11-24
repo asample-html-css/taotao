@@ -15,7 +15,7 @@ public class RequestConfigDemo {
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
         // 创建http GET请求
-        HttpGet httpGet = new HttpGet("http://www.baidu.com/");
+        HttpGet httpGet = new HttpGet("http://www.taotao.com/");
 
         // 构建请求配置信息
         RequestConfig config = RequestConfig.custom().setConnectTimeout(1000) // 创建连接的最长时间

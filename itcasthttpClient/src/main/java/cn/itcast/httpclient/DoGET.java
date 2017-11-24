@@ -14,8 +14,8 @@ public class DoGET {
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
         // 创建http GET请求
-        HttpGet httpGet = new HttpGet("http://manage.taotao.com/rest/api/content?categoryId=9&page=1&rows=1");
-
+        HttpGet httpGet = new HttpGet("http://manage.taotao.com/rest/api/content?categoryId=31&page=1&rows=11");
+//        HttpGet httpGet = new HttpGet("http://www.baidu.com/");
         CloseableHttpResponse response = null;
         try {
             // 执行请求

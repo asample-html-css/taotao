@@ -29,6 +29,9 @@ package cn.itcast.httpclient;
 import org.apache.http.conn.HttpClientConnectionManager;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 
+/**
+ * 定时清理无效链接
+ */
 public class ClientEvictExpiredConnections {
 
     public static void main(String[] args) throws Exception {

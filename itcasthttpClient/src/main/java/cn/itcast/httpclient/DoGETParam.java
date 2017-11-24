@@ -15,10 +15,11 @@ public class DoGETParam {
 
         // 创建Httpclient对象
         CloseableHttpClient httpclient = HttpClients.createDefault();
-
         // 定义请求的参数
-        URI uri = new URIBuilder("http://www.baidu.com/s").setParameter("wd", "java").build();
-
+        URI uri = new URIBuilder("http://manage.taotao.com/rest/api/content")
+                .setParameter("categoryId", "31")
+                .setParameter("page", "1")
+                .setParameter("rows", "11").build();
         System.out.println(uri);
 
         // 创建http GET请求
