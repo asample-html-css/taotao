@@ -47,6 +47,28 @@ public class ContentController {
     }
 
     /**
+     * 删除内容
+     * @return
+     */
+    @RequestMapping(value = ("delete"),method = RequestMethod.POST)
+    public ResponseEntity<Void> deleteContent(long[] ids) {
+        try {
+            int i =   this.contentService.deleteContent(ids);
+            if(i == ids.length){
+//                return ResponseEntity.status(200).build();
+                return ResponseEntity.ok(null);//200
+            }
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);//400
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+    }
+
+
+
+
+    /**
      * 查询内容列表
      * @return
      */

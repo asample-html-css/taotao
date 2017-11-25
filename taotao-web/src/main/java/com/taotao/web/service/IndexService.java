@@ -19,7 +19,7 @@ import java.util.Map;
  * Created by dd876799869 on 2017/6/10.
  */
 @Service
-public class IndexService   {
+public class IndexService {
 
     @Value("${AD_BASE_URL}")
     public String AD_BASE_URL;
@@ -47,6 +47,7 @@ public class IndexService   {
 
     /**
      * 查询大广告
+     *
      * @return
      */
     public String queryIndexAd1() {
@@ -55,17 +56,17 @@ public class IndexService   {
  * 要想实现首页大广告实现缓存的话  redisServie就应该放在taotao-common中  而不是taotao-service
  */
 //        //首先到缓存中命中
-            String cacheData1 =redisService.getCacheString(REDIS_INDEXAD1);
-            if (cacheData1!=null){
-                return  cacheData1;
-            }
-            //查数据库
-            try {
-                //获取原生json数据
+        String cacheData1 = redisService.getCacheString(REDIS_INDEXAD1);
+        if (cacheData1 != null) {
+            return cacheData1;
+        }
+        //查数据库
+        try {
+            //获取原生json数据
             String url = AD_BASE_URL + AD1_URL;
             //此处返回的是json数据
-            String jsonData =  apiService.doGet(url);
-            if (jsonData==null){
+            String jsonData = apiService.doGet(url);
+            if (jsonData == null) {
                 return null;
             }
 
@@ -75,19 +76,19 @@ public class IndexService   {
             //将数据封装成数组  拿到返回数据中的rows
             ArrayNode rows = (ArrayNode) jsonNode.get("rows");
 
-            List<Map<String,Object>> result = new ArrayList<Map<String, Object>>();//6条广告封装的容器
+            List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();//6条广告封装的容器
 
-            for (JsonNode row :rows ) {//对rows中的每个节点JsonNode进行遍历
-                Map<String,Object> map = new LinkedHashMap<String, Object>();
+            for (JsonNode row : rows) {//对rows中的每个节点JsonNode进行遍历
+                Map<String, Object> map = new LinkedHashMap<String, Object>();
 
-                map.put("srcB",row.get("pic").asText());
-                map.put("height",240);
-                map.put("alt",row.get("title").asText());
-                map.put("width",670);
-                map.put("src",row.get("pic").asText());
-                map.put("widthB",550);
-                map.put("href",row.get("url").asText());
-                map.put("heightB",240);
+                map.put("srcB", row.get("pic").asText());
+                map.put("height", 240);
+                map.put("alt", row.get("title").asText());
+                map.put("width", 670);
+                map.put("src", row.get("pic").asText());
+                map.put("widthB", 550);
+                map.put("href", row.get("url").asText());
+                map.put("heightB", 240);
 
                 result.add(map);
             }
@@ -98,30 +99,31 @@ public class IndexService   {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-           // return  result.toString();简单的toString会生成 = 号
+            // return  result.toString();简单的toString会生成 = 号
             return MAPPER.writeValueAsString(result);//将json对象序列化成json字符串
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return  null;
+        return null;
     }
 
     /**
      * 查询右上角小广告
+     *
      * @return
      */
     public String queryIndexAd2() {
-        String cacheData2 =redisService.getCacheString(REDIS_INDEXAD2);
-        if (cacheData2!=null){
-            return  cacheData2;
+        String cacheData2 = redisService.getCacheString(REDIS_INDEXAD2);
+        if (cacheData2 != null) {
+            return cacheData2;
         }
         //查数据库
         try {
             //获取原生json数据
             String url = AD_BASE_URL + AD2_URL;
             //此处返回的是json数据
-            String jsonData =  apiService.doGet(url);
-            if (jsonData==null){
+            String jsonData = apiService.doGet(url);
+            if (jsonData == null) {
                 return null;
             }
 
@@ -131,18 +133,18 @@ public class IndexService   {
             //将数据封装成数组  拿到返回数据中的rows
             ArrayNode rows = (ArrayNode) jsonNode.get("rows");
 
-            List<Map<String,Object>> result = new ArrayList<Map<String, Object>>();//6条广告封装的容器
+            List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();//6条广告封装的容器
 
-            for (JsonNode row :rows ) {//对rows中的每个节点JsonNode进行遍历
-                Map<String,Object> map = new LinkedHashMap<String, Object>();
-                map.put("width",310);
-                map.put("height",70);
-                map.put("src",row.get("pic").asText());
-                map.put("href",row.get("url").asText());
-                map.put("alt",row.get("title").asText());
-                map.put("widthB",210);
-                map.put("heightB",70);
-                map.put("srcB",row.get("pic").asText());
+            for (JsonNode row : rows) {//对rows中的每个节点JsonNode进行遍历
+                Map<String, Object> map = new LinkedHashMap<String, Object>();
+                map.put("width", 310);
+                map.put("height", 70);
+                map.put("src", row.get("pic").asText());
+                map.put("href", row.get("url").asText());
+                map.put("alt", row.get("title").asText());
+                map.put("widthB", 210);
+                map.put("heightB", 70);
+                map.put("srcB", row.get("pic").asText());
                 result.add(map);
             }
 
@@ -157,6 +159,6 @@ public class IndexService   {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return  null;
+        return null;
     }
 }

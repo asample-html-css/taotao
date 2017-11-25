@@ -155,4 +155,7 @@ public abstract class BaseService<T extends BasePojo> {
     public Integer deleteByWhere(T record) {
         return mapper.delete(record);
     }
+
+
+
 }
