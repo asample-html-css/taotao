@@ -12,6 +12,7 @@ import com.taotao.manage.mapper.ItemMapper;
 import com.taotao.manage.pojo.Item;
 import com.taotao.manage.pojo.ItemDesc;
 import com.taotao.manage.pojo.ItemParamItem;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -144,10 +145,7 @@ public class ItemService extends BaseService<Item> {
         }
 
         //保存商品规格参数
-        Integer count3 = 1;//有些插入的数据并没有商品参数
-//        if (StringUtils.isNotEmpty(itemParams.trim())){
-//            count3 = itemParamItemService.updateItemParamItem(item.getId(), itemParams);
-//        }
+        Integer  count3 =StringUtils.isNotEmpty(itemParams.trim())?itemParamItemService.updateItemParamItem(item.getId(), itemParams):1;
 
         //通知其他系统删除缓存
         try {
