@@ -7,6 +7,7 @@ import com.github.pagehelper.PageInfo;
 import com.taotao.common.bean.EasyUIResult;
 import com.taotao.common.service.ApiService;
 import com.taotao.manage.mapper.ItemCatMapper;
+import com.taotao.manage.mapper.ItemDescMapper;
 import com.taotao.manage.mapper.ItemMapper;
 import com.taotao.manage.pojo.Item;
 import com.taotao.manage.pojo.ItemDesc;
@@ -35,6 +36,9 @@ public class ItemService extends BaseService<Item> {
     @Autowired
     private ItemCatMapper itemCatMapper;
 
+
+    @Autowired
+    private ItemDescMapper itemDescMapper;
 
     @Autowired
     private ApiService apiService;
@@ -167,4 +171,39 @@ public class ItemService extends BaseService<Item> {
                 e.printStackTrace();
             }
         }
+
+
+    /**
+     * 根據ID刪除數據
+     * @param ids
+     * @return
+     */
+    public int deleteItem(long[] ids) {
+        for (int i =0;i <ids.length;i++){
+            clearCache(ids[i]);
+        }
+        //删除数据库
+        int i = itemMapper.deleteItem(ids);
+        int j = itemDescMapper.deleteItemDesc(ids);
+        return i == j ? i : 0;
     }
+
+
+    /**
+     * 插入 更新 删除 内容的时候通知其他系统清空缓存
+     */
+    private void clearCache(long id) {
+        String url1 = TAOTAO_WEB_URL + "/item/cache/"+id+".html";
+        String url2 = TAOTAO_WEB_URL + "/itemDesc/cache/"+id+".html";
+        try {
+            this.apiService.doPost(url1);
+            this.apiService.doPost(url2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+}

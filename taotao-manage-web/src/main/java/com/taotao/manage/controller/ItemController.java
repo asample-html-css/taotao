@@ -3,6 +3,7 @@ package com.taotao.manage.controller;
 import com.mysql.jdbc.StringUtils;
 import com.taotao.common.bean.EasyUIResult;
 import com.taotao.manage.pojo.Item;
+import com.taotao.manage.service.ItemDescService;
 import com.taotao.manage.service.ItemService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +27,10 @@ public class ItemController {
 
     @Autowired
     private ItemService itemService;
+
+    @Autowired
+    private ItemDescService itemDescService;
+
 
 
     /**
@@ -132,6 +137,24 @@ public class ItemController {
     }
 
 
+    /**
+     * 删除商品
+     * @return
+     */
+    @RequestMapping(value = ("delete"),method = RequestMethod.POST)
+    public ResponseEntity<Void> deleteItem(long[] ids) {
+        try {
+            int i =   this.itemService.deleteItem(ids);
+            if(i == ids.length){
+//                return ResponseEntity.status(200).build();
+                return ResponseEntity.ok(null);//200
+            }
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);//400
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+    }
 
 
 

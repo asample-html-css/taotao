@@ -125,7 +125,7 @@ public class ApiService implements BeanFactoryAware {
         try {
             // 执行请求
             response = getHttpclient().execute(httpPost);
-            return new HttpResult(response.getStatusLine().getStatusCode(), EntityUtils.toString(response.getEntity(), "UTF-8"));
+            return new HttpResult(response.getStatusLine().getStatusCode(),response.getEntity()==null?null:EntityUtils.toString(response.getEntity(), "UTF-8"));
         } finally {
             if (response != null) {
                 response.close();

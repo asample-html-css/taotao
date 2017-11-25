@@ -148,14 +148,12 @@ public abstract class BaseService<T extends BasePojo> {
 
     /**
      * 根据条件删除数据
-     *
      * @param record
      * @return
      */
     public Integer deleteByWhere(T record) {
         return mapper.delete(record);
     }
-
 
 
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.taotao.manage.mapper.ItemMapper">
+
+
+    <!--根據ID删除商品数据,删除商品详情数据-->
+    <delete id="deleteItem">
+        delete from tb_item WHERE id IN
+        <foreach collection="ids" open="(" item="id" index="index" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
+
+</mapper>

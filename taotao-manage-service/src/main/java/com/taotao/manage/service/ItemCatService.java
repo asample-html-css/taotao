@@ -25,7 +25,7 @@ public class ItemCatService extends BaseService<ItemCat> {
 
     private static ObjectMapper MAPPER = new ObjectMapper();
 
-    private static String REDIS_KEY = "TAOTAO_MANAGE_ITEM_CAT_ALL";
+    private static String REDIS_ITEM_CAT_ALL = "TAOTAO_MANAGE_ITEM_CAT_ALL";
 
     private static Integer REDIS_TIME = 60 * 60 * 24 * 90;
 
@@ -38,7 +38,7 @@ public class ItemCatService extends BaseService<ItemCat> {
     public ItemCatResult queryAllToTree() {
         try {
             //首先到缓存中命中
-            String cacheData = redisService.get(REDIS_KEY);
+            String cacheData = redisService.get(REDIS_ITEM_CAT_ALL);
             if (StringUtils.isNotEmpty(cacheData)) {//不为空，命中
                 //将String转化成ItemCatResult
                 return MAPPER.readValue(cacheData, ItemCatResult.class);
@@ -100,7 +100,7 @@ public class ItemCatService extends BaseService<ItemCat> {
 
         //在返回之前，将数据保存到缓存中 3个月
         try {
-            redisService.set(REDIS_KEY, MAPPER.writeValueAsString(result), REDIS_TIME);
+            redisService.set(REDIS_ITEM_CAT_ALL, MAPPER.writeValueAsString(result), REDIS_TIME);
         } catch (Exception e) {
             e.printStackTrace();
         }
