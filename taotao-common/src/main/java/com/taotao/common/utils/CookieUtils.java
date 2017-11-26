@@ -210,11 +210,20 @@ public final class CookieUtils {
 			final String[] domains = serverName.split("\\.");
 			int len = domains.length;
 			if (len > 3) {
+				/**
+				 * tomcat8.5之后的cookie命名规则
+					 domain规则如下
+					 1、必须是1-9、a-z、A-Z、. 、- （注意是-不是_）这几个字符组成
+					 2、必须是数字或字母开头
+					 3、必须是数字或字母结尾
+				 */
 				// www.xxx.com.cn
-				domainName = "." + domains[len - 3] + "." + domains[len - 2] + "." + domains[len - 1];
+//				domainName = "." + domains[len - 3] + "." + domains[len - 2] + "." + domains[len - 1];
+				domainName = domains[len - 3] + "." + domains[len - 2] + "." + domains[len - 1];
 			} else if (len <= 3 && len > 1) {
 				// xxx.com or xxx.cn
-				domainName = "." + domains[len - 2] + "." + domains[len - 1];
+//				domainName = "." + domains[len - 2] + "." + domains[len - 1];
+				domainName = domains[len - 2] + "." + domains[len - 1];
 			} else {
 				domainName = serverName;
 			}
