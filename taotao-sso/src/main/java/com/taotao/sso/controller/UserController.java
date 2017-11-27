@@ -115,7 +115,7 @@ public class UserController {
 
 
     /**
-     * 登录
+     * 登录 将登陆信息保存到redis, key保存到cookie中
      * @return
      */
     @RequestMapping(value = "doLogin",method = RequestMethod.POST)
@@ -148,7 +148,7 @@ public class UserController {
 
 
     /**
-     * 根据token查询用户信息
+     * 根据token查询用户信息  token是前端从cookie中获取,传到后端的
      * @return
      */
     @RequestMapping(value = "{token}",method = RequestMethod.GET)

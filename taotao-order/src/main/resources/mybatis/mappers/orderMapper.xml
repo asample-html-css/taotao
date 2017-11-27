@@ -5,6 +5,12 @@
 
     <sql id="tableName">tb_order</sql>
 
+
+    <!--这个resultMapping比较高级
+     1, autoMapping="true" 开启自动映射 会根据驼峰命名规则将没有配置的字段映射
+     2, association 一对一  这里的orderShipping集合是通过queryOrderShippingByOrderId这个select来封装的
+     3, collection 一对多 一个order实体里面包含多个orderItem实体
+    -->
     <resultMap type="Order" id="pojoResultMap" autoMapping="true">
         <id column="order_id" property="orderId"/>
         <association property="orderShipping" javaType="OrderShipping" column="order_id"
@@ -53,11 +59,17 @@
         WHERE ${where.column} ${where.operater} #{where.value};
     </select>
 
+    <!--
+    这个sql知识点很多
+    1， 同一个insert里面可以保存多张表  订单表 tb_order  2，商品订单表tb_order_item  3，收货信息表 tb_order_shipping
+    2， javabean里面可以嵌套集合， 批量插入集合中的数据
+    -->
     <insert id="save">
         INSERT INTO
         <include refid="tableName"/>
         VALUES
         (#{orderId},#{payment},#{paymentType},#{postFee},#{status},#{createTime},#{updateTime},#{paymentTime},#{consignTime},#{endTime},#{closeTime},#{shippingName},#{shippingCode},#{userId},#{buyerMessage},#{buyerNick},#{buyerRate});
+
         INSERT INTO tb_order_item VALUES
         <foreach collection="orderItems" item="item" separator=",">
             (#{item.itemId},#{orderId},#{item.num},#{item.title},#{item.price},#{item.totalFee},#{item.picPath})
