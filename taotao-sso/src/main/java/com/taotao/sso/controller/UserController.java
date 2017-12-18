@@ -36,6 +36,7 @@ public class UserController {
 
     private static String COOKIE_NAME = "TT_LOGIN";
 
+    public static final String COOKIE_NAME_ITEM_PAGE = "URL_TO_PAGE";
 
 
     /**
@@ -130,12 +131,18 @@ public class UserController {
                 result.put("status",400);
             }else{
 
-                System.out.println(request.getRequestURI());
-                System.out.println(request.getRequestURL());
+//                System.out.println(request.getRequestURI());
+//                System.out.println(request.getRequestURL());
 
                 //登录成功  将token保存到cookie中
                 result.put("status",200);
                 CookieUtils.setCookie(request,response,COOKIE_NAME,token);
+
+                //从cookie中获取跳转链接的信息
+//                String urlToPage = CookieUtils.getCookieValue(request,COOKIE_NAME_ITEM_PAGE);
+//                if(StringUtils.isNoneEmpty(urlToPage)){
+//                    response.sendRedirect(urlToPage);
+//                }
             }
         } catch (Exception e) {
             e.printStackTrace();

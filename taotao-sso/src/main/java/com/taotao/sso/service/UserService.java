@@ -89,6 +89,7 @@ public class UserService {
         //至此,登录成功
         //生成token  保存到redis中
         String token = DigestUtils.md5Hex(user.getPassword() + username + System.currentTimeMillis());
+        //用户信息保存到redis中 返回key
         this.redisService.set("TOKEN_" + token, mapper.writeValueAsString(user), 60 * 30);
         return token;
     }

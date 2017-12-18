@@ -74,7 +74,6 @@ public class OrderController {
 
     /**
      * 返回成功页面
-     * http://www.taotao.com/order/success.html?id=91500174118363   id是问号之后的携带参数   并不是在路径里面的
      * 所以RequestParam 而不是 占位符
      * @param orderId
      * @return

@@ -41,6 +41,7 @@ public class OrderService {
             //调用taotao-order系统的提交订单接口
             String orderUrl = TAOTAO_ORDER_URL + "/order/create";
             String json = mapper.writeValueAsString(order);
+            //在这里访问订单系统的创建订单接口,但是那个系统需要接受的是json数据
             HttpResult httpResult = apiService.doPostJson(orderUrl, json);
             if (httpResult.getCode().intValue() == 200) {
                 //响应的状态码200  将httpResult发序列化成对象
